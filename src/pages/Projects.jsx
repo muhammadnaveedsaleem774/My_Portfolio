@@ -11,7 +11,7 @@ const Projects = () => {
       description: 'A productivity app to manage daily tasks with CRUD operations and local storage.',
       image: '/todoapp.png',
       technologies: ['React', 'LocalStorage', 'Tailwind CSS'],
-      liveLink: 'https://my-to-do-hn6q5kdut-muhammadnaveedsaleem774s-projects.vercel.app',
+      liveLink: 'https://my-to-do-app-eight-lac.vercel.app',
       githubLink: 'https://github.com/muhammadnaveedsaleem774/My_to_do_app.git',
     },
     {
@@ -20,7 +20,7 @@ const Projects = () => {
       description: 'Interactive dice rolling simulator with realistic animations.',
       image: '/d.jpeg',
       technologies: ['JavaScript', 'CSS Animations', 'React'],
-      liveLink: 'https://dice-live-al2llugfg-muhammadnaveedsaleem774s-projects.vercel.app',
+      liveLink: 'https://dice-live.vercel.app',
       githubLink: 'https://github.com/muhammadnaveedsaleem774/Dice_live.git',
     },
     {
@@ -29,7 +29,7 @@ const Projects = () => {
       description: 'Secure random password generator with customizable options.',
       image: '/download.png',
       technologies: ['JavaScript', 'React', 'Clipboard API'],
-      liveLink: 'https://dice-sk1c-few8jkhbp-muhammadnaveedsaleem774s-projects.vercel.app',
+      liveLink: 'https://dice-sk1c-muhammadnaveedsaleem774s-projects.vercel.app',
       githubLink: 'https://github.com/muhammadnaveedsaleem774/Dice.git',
     },
     {
