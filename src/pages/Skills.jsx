@@ -38,8 +38,8 @@ const Skills = () => {
   };
 
   return (
-    <div className="min-h-screen py-20 bg-gradient-to-br from-blue-50 via-white to-purple-50">
-      <div className="container-wrapper">
+    <div className="min-h-screen py-12 bg-gradient-to-br from-gray-900 to-cyan-900bg-gradient-to-br from-gray-900 to-cyan-900">
+      <div className="max-w-7xl mx-auto px-4">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -47,13 +47,14 @@ const Skills = () => {
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 text-transparent bg-clip-text">
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-transparent bg-clip-text">
             Skills & Expertise
           </h1>
-          <p className="text-gray-600 max-w-2xl mx-auto">
+          <p className="text-gray-300 max-w-2xl mx-auto">
             Here's an overview of my technical skills and proficiency levels in various technologies.
           </p>
         </motion.div>
+          
 
         {/* Skills Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
@@ -62,19 +63,19 @@ const Skills = () => {
             variants={container}
             initial="hidden"
             animate="show"
-            className="bg-white p-6 rounded-xl shadow-lg"
+            className=" p-6 rounded-xl shadow-lg border border-cyan-700"
           >
-            <h2 className="text-2xl font-bold mb-6 text-blue-600">Frontend</h2>
+            <h2 className="text-2xl font-bold mb-6 text-blue-400">Frontend</h2>
             <div className="space-y-6">
               {skills.frontend.map((skill) => (
                 <motion.div key={skill.name} variants={item}>
                   <div className="flex justify-between mb-2">
-                    <span className="font-medium">{skill.name}</span>
-                    <span className="text-gray-600">{skill.level}%</span>
+                    <span className="font-medium text-gray-200">{skill.name}</span>
+                    <span className="text-gray-400">{skill.level}%</span>
                   </div>
-                  <div className="h-3 bg-gray-200 rounded-full overflow-hidden">
+                  <div className="h-3 bg-gray-700 rounded-full overflow-hidden">
                     <motion.div
-                      className="h-full bg-blue-600 rounded-full"
+                      className="h-full bg-blue-500 rounded-full"
                       initial={{ width: 0 }}
                       animate={{ width: `${skill.level}%` }}
                       transition={{ duration: 1, delay: 0.2 }}
@@ -83,6 +84,9 @@ const Skills = () => {
                 </motion.div>
               ))}
             </div>
+
+
+            
           </motion.div>
 
           {/* Backend Skills */}
@@ -90,19 +94,19 @@ const Skills = () => {
             variants={container}
             initial="hidden"
             animate="show"
-            className="bg-white p-6 rounded-xl shadow-lg"
+            className=" p-6 rounded-xl shadow-lg border border-cyan-700"
           >
-            <h2 className="text-2xl font-bold mb-6 text-purple-600">Backend</h2>
+            <h2 className="text-2xl font-bold mb-6 text-indigo-400">Backend</h2>
             <div className="space-y-6">
               {skills.backend.map((skill) => (
                 <motion.div key={skill.name} variants={item}>
                   <div className="flex justify-between mb-2">
-                    <span className="font-medium">{skill.name}</span>
-                    <span className="text-gray-600">{skill.level}%</span>
+                    <span className="font-medium text-gray-200">{skill.name}</span>
+                    <span className="text-gray-400">{skill.level}%</span>
                   </div>
-                  <div className="h-3 bg-gray-200 rounded-full overflow-hidden">
+                  <div className="h-3 bg-gray-700 rounded-full overflow-hidden">
                     <motion.div
-                      className="h-full bg-purple-600 rounded-full"
+                      className="h-full bg-indigo-500 rounded-full"
                       initial={{ width: 0 }}
                       animate={{ width: `${skill.level}%` }}
                       transition={{ duration: 1, delay: 0.2 }}
@@ -118,19 +122,19 @@ const Skills = () => {
             variants={container}
             initial="hidden"
             animate="show"
-            className="bg-white p-6 rounded-xl shadow-lg lg:col-span-1 md:col-span-2 lg:col-start-3 lg:row-start-1"
+            className=" p-6 rounded-xl shadow-lg border border-cyan-700 lg:col-span-1 md:col-span-2 lg:col-start-3 lg:row-start-1"
           >
-            <h2 className="text-2xl font-bold mb-6 text-green-600">Tools & Technologies</h2>
+            <h2 className="text-2xl font-bold mb-6 text-green-400">Tools & Technologies</h2>
             <div className="space-y-6">
               {skills.tools.map((skill) => (
                 <motion.div key={skill.name} variants={item}>
                   <div className="flex justify-between mb-2">
-                    <span className="font-medium">{skill.name}</span>
-                    <span className="text-gray-600">{skill.level}%</span>
+                    <span className="font-medium text-gray-200">{skill.name}</span>
+                    <span className="text-gray-400">{skill.level}%</span>
                   </div>
-                  <div className="h-3 bg-gray-200 rounded-full overflow-hidden">
+                  <div className="h-3 bg-gray-700 rounded-full overflow-hidden">
                     <motion.div
-                      className="h-full bg-green-600 rounded-full"
+                      className="h-full bg-green-500 rounded-full"
                       initial={{ width: 0 }}
                       animate={{ width: `${skill.level}%` }}
                       transition={{ duration: 1, delay: 0.2 }}
@@ -149,7 +153,7 @@ const Skills = () => {
           transition={{ duration: 0.5, delay: 0.5 }}
           className="mt-16 text-center"
         >
-          <p className="text-gray-600">
+          <p className="text-gray-300">
             I'm always learning and expanding my skill set. Currently exploring:
           </p>
           <div className="flex flex-wrap justify-center gap-4 mt-4">
@@ -159,7 +163,7 @@ const Skills = () => {
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.3, delay: index * 0.1 }}
-                className="px-4 py-2 bg-gray-100 rounded-full text-gray-700"
+                className="px-4 py-2  border border-cyan-600 rounded-full text-gray-300"
               >
                 {skill}
               </motion.span>

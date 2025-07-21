@@ -52,7 +52,7 @@ const Contact = () => {
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
         </svg>
       ),
-      href: 'mailto:muhammadnaveedsaleem2@gmail.com'
+      href: 'mailto:mail12@gmail.com'
     },
     {
       name: 'LinkedIn',
@@ -84,8 +84,8 @@ const Contact = () => {
   ];
 
   return (
-    <div className="min-h-screen py-20 bg-gradient-to-br from-blue-50 via-white to-purple-50">
-      <div className="container-wrapper">
+    <div className="min-h-screen py-12 bg-gradient-to-br from-gray-900 to-cyan-900bg-gradient-to-br from-gray-900 to-cyan-900">
+      <div className="max-w-7xl mx-auto px-4">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -93,10 +93,10 @@ const Contact = () => {
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 text-transparent bg-clip-text">
+          <h1 className="text-4xl md:text-5xl font-sans font-bold mb-4 bg-gradient-to-r from-cyan-400 to-indigo-400 text-transparent bg-clip-text">
             Get in Touch
           </h1>
-          <p className="text-gray-600 max-w-2xl mx-auto">
+          <p className="text-gray-300 font-serif max-w-2xl mx-auto">
             Have a question or want to work together? Feel free to reach out!
           </p>
         </motion.div>
@@ -107,11 +107,11 @@ const Contact = () => {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
-            className="bg-white p-8 rounded-xl shadow-lg"
+            className=" p-8 rounded-xl shadow-lg border border-cyan-700"
           >
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label htmlFor="name" className="block text-gray-700 font-medium mb-2">
+                <label htmlFor="name" className="block text-gray-300 font-medium mb-2">
                   Name
                 </label>
                 <input
@@ -121,13 +121,13 @@ const Contact = () => {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                  className="w-full px-4 py-2 bg-cyan-500/10 border border-cyan-700 text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="Your name"
                 />
               </div>
 
               <div>
-                <label htmlFor="email" className="block text-gray-700 font-medium mb-2">
+                <label htmlFor="email" className="block text-gray-300 font-medium mb-2">
                   Email
                 </label>
                 <input
@@ -137,13 +137,13 @@ const Contact = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-                  placeholder="muhammadnaveedsaleem2@gmail.com"
+                  className="w-full px-4 bg-cyan-500/10 py-2 border border-cyan-700 text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="example2@gmail.com"
                 />
               </div>
 
               <div>
-                <label htmlFor="message" className="block text-gray-700 font-medium mb-2">
+                <label htmlFor="message" className="block text-gray-300 font-medium mb-2">
                   Message
                 </label>
                 <textarea
@@ -153,7 +153,7 @@ const Contact = () => {
                   onChange={handleChange}
                   required
                   rows="5"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                  className="w-full px-4 py-2 bg-cyan-500/10 border border-cyan-700 text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="Your message..."
                 ></textarea>
               </div>
@@ -161,7 +161,7 @@ const Contact = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-3 px-6 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full py-3 px-6 bg-cyan-500/10 text-white rounded-lg hover:bg-cyan-500/20 transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {loading ? (
                   <span className="flex items-center justify-center">
@@ -179,7 +179,7 @@ const Contact = () => {
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   className={`p-4 rounded-lg ${
-                    status.type === 'success' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
+                    status.type === 'success' ? 'bg-green-900 text-green-300 border border-green-700' : 'bg-red-900 text-red-300 border border-red-700'
                   }`}
                 >
                   {status.message}
@@ -196,8 +196,8 @@ const Contact = () => {
             className="space-y-8"
           >
             {/* Connect Section */}
-            <div className="bg-white p-8 rounded-xl shadow-lg">
-              <h2 className="text-2xl font-bold mb-6">Let's Connect</h2>
+            <div className=" p-8 rounded-xl shadow-lg border border-gray-700">
+              <h2 className="text-2xl font-bold mb-6 text-white">Let's Connect</h2>
               <div className="space-y-6">
                 {socialLinks.map((link) => (
                   <motion.a
@@ -205,10 +205,10 @@ const Contact = () => {
                     href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center space-x-4 text-gray-600 hover:text-blue-600 transition duration-300"
+                    className="flex items-center space-x-4 text-gray-300 hover:text-blue-400 transition duration-300"
                     whileHover={{ x: 10 }}
                   >
-                    <div className="w-12 h-12 flex items-center justify-center bg-gray-100 rounded-lg">
+                    <div className="w-12 h-12 flex items-center justify-center bg-gray-700 rounded-lg">
                       {link.icon}
                     </div>
                     <span className="font-medium">{link.name}</span>
@@ -218,10 +218,10 @@ const Contact = () => {
             </div>
 
             {/* Location */}
-            <div className="bg-white p-8 rounded-xl shadow-lg">
-              <h2 className="text-2xl font-bold mb-6">Location</h2>
-              <p className="text-gray-600">
-                Based in [Your City], [Your Country]<br />
+            <div className=" p-8 rounded-xl shadow-lg border border-cyan-700">
+              <h2 className="text-2xl font-bold mb-6 text-white">Location</h2>
+              <p className="text-gray-300">
+                Based in Multan, Pakistan<br />
                 Available for remote work worldwide
               </p>
             </div>
