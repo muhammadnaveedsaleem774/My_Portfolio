@@ -29,7 +29,7 @@ const Projects = () => {
       description: 'Secure random password generator with customizable options.',
       image: '/download.png',
       technologies: ['JavaScript', 'React', 'Clipboard API'],
-      liveLink: 'https://dice-sk1c-muhammadnaveedsaleem774s-projects.vercel.app',
+      liveLink: 'https://dice-sk1c.vercel.app',
       githubLink: 'https://github.com/muhammadnaveedsaleem774/Dice.git',
     },
     {
