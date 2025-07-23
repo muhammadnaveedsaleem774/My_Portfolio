@@ -220,13 +220,14 @@ const EducationSection = () => (
           <div className="flex flex-col md:flex-row items-center">
             <div className="md:w-1/3 mb-6 md:mb-0">
               <h3 className="text-2xl font-bold text-white mb-2">BS Computer Science</h3>
-              <p className="text-purple-400">University of XYZ</p>
-              <p className="text-gray-400">2018 - 2022</p>
+              <p className="text-purple-400">Bahauddin Zakariya University, Multan (Pakistan)
+              </p>
+              <p className="text-gray-400">2022 - 2026</p>
             </div>
             <div className="md:w-2/3">
               <p className="text-gray-400 mb-4">
                 Comprehensive computer science program covering theoretical foundations and practical applications. 
-                Graduated with honors (GPA: 3.8/4.0), with coursework emphasizing software engineering principles, 
+                Graduated with honors (GPA: 3.53/4.0), with coursework emphasizing software engineering principles, 
                 algorithm design, and systems programming.
               </p>
               <div className="flex flex-wrap gap-2">

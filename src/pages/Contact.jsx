@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import axios from 'axios';
-import { FiMail, FiMapPin, FiPhone, FiSend, FiCheck, FiX } from 'react-icons/fi';
+import { FiMail, FiMapPin, FiPhone, FiArrowRight, FiSend, FiCheck, FiX } from 'react-icons/fi';
 import { FaLinkedinIn, FaGithub, FaTwitter, FaDiscord, FaWhatsapp } from 'react-icons/fa';
 import { SiUpwork } from 'react-icons/si';
 
@@ -88,28 +88,28 @@ const Contact = () => {
       name: 'Email',
       value: 'muhammadnaveedsaleem774@gmail.com',
       href: 'mailto:muhammadnaveedsaleem774@gmail.com',
-      icon: <FiMail className="text-red-400" />,
+      icon: FiMail,
       action: 'Send me an email'
     },
     {
       name: 'LinkedIn',
       value: 'muhammad-naveed-saleem',
       href: 'https://linkedin.com/in/muhammad-naveed-saleem',
-      icon: <FaLinkedinIn className="text-blue-500" />,
+      icon: FaLinkedinIn,
       action: 'Connect professionally'
     },
     {
       name: 'GitHub',
       value: 'muhammadnaveedsaleem774',
       href: 'https://github.com/muhammadnaveedsaleem774',
-      icon: <FaGithub className="text-gray-100" />,
+      icon: FaGithub,
       action: 'View my code'
     },
     {
       name: 'Upwork',
       value: 'Muhammad Naveed Saleem',
       href: 'https://www.upwork.com/freelancers/~014163b572e684c07c?mp_source=share',
-      icon: <SiUpwork className="text-green-500" />,
+      icon: SiUpwork,
       action: 'Hire me'
     }
   ];
@@ -480,107 +480,128 @@ const Contact = () => {
               transition={{ duration: 0.5, delay: 0.4 }}
               className="space-y-8"
             >
-              {/* Contact Methods */}
-              <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-xl p-8 hover:border-primary-500/30 transition-all duration-500">
-                <div className="flex items-center mb-8">
-                  <div className="p-3 rounded-lg bg-primary-500/10 text-primary-400 mr-4">
-                    <FiPhone className="text-xl" />
-                  </div>
-                  <div>
-                    <h3 className="text-2xl font-bold text-white">Contact Methods</h3>
-                    <p className="text-gray-400">Choose your preferred way to reach me</p>
-                  </div>
-                </div>
+  
 
-                <div className="space-y-4">
-                  {contactMethods.map((method, index) => (
-                    <motion.a
-                      key={method.name}
-                      href={method.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group flex items-center justify-between p-4 rounded-lg bg-gray-800/30 border border-gray-700/50 hover:border-primary-500/50 transition-all duration-300"
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: index * 0.1 }}
-                      onMouseEnter={() => setHoveredItem(`contact-${index}`)}
-                      onMouseLeave={() => setHoveredItem(null)}
-                    >
-                      <div className="flex items-center space-x-4">
-                        <div className="p-3 rounded-lg bg-gray-700/50 group-hover:bg-primary-500/10 transition-colors duration-300">
-                          {method.icon}
-                        </div>
-                        <div>
-                          <h4 className="font-medium text-white">{method.name}</h4>
-                          <p className="text-sm text-gray-400">{method.value}</p>
-                        </div>
-                      </div>
-                      <div className="text-xs text-gray-500 group-hover:text-primary-400 transition-colors duration-300">
-                        {method.action} →
-                      </div>
-                      <motion.div
-                        className="absolute inset-0 bg-gradient-to-br from-primary-500/5 to-transparent opacity-0"
-                        initial={{ opacity: 0 }}
-                        animate={{
-                          opacity: hoveredItem === `contact-${index}` ? 0.1 : 0
-                        }}
-                        transition={{ duration: 0.3 }}
-                      />
-                    </motion.a>
-                  ))}
-                </div>
-              </div>
+{/* Contact Methods Section */}
+<section className="bg-gray-800/70 backdrop-blur-md border border-gray-700/60 rounded-2xl p-8  transition-all duration-300 hover:border-primary-500/40 shadow-lg">
+  {/* Section Header */}
+  <header className="flex items-start md:items-center gap-4 mb-6 md:mb-8">
+    <div className="p-3 rounded-xl bg-primary-500/10 text-primary-400/90 shadow-sm">
+      <FiPhone className="text-xl md:text-2xl" />
+    </div>
+    <div>
+      <h2 className="text-xl md:text-2xl font-bold text-white leading-tight">
+        Contact Methods
+      </h2>
+      <p className="text-sm md:text-base text-gray-400/90 mt-1">
+        Reach out through your preferred channel
+      </p>
+    </div>
+  </header>
 
-              {/* Location & Availability */}
-              <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-xl p-8 hover:border-secondary-500/30 transition-all duration-500">
-                <div className="flex items-center mb-8">
-                  <div className="p-3 rounded-lg bg-secondary-500/10 text-secondary-400 mr-4">
-                    <FiMapPin className="text-xl" />
-                  </div>
-                  <div>
-                    <h3 className="text-2xl font-bold text-white">Location & Availability</h3>
-                    <p className="text-gray-400">Where I work and when I'm available</p>
-                  </div>
-                </div>
+  {/* Contact Cards Grid */}
+  <div className="grid grid-cols-1 md:grid-cols-1 gap-3 md:gap-4">
+    {contactMethods.map((method, index) => (
+      <motion.article
+        key={method.name}
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: index * 0.1, duration: 0.3 }}
+        whileHover={{ y: -2 }}
+        className="group relative overflow-hidden"
+      >
+        <a
+          href={method.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center justify-between p-4 md:p-5 rounded-xl bg-gray-800/50 border border-gray-700/50 hover:border-primary-500/40 transition-all duration-300"
+        >
+          {/* Contact Method Info */}
+          <div className="flex items-center gap-4 min-w-0">
+            <div className="flex-shrink-0 p-3 rounded-lg bg-gray-700/50 group-hover:bg-primary-500/10 transition-colors duration-300 shadow-sm">
+              <method.icon className="text-lg md:text-xl text-gray-300 group-hover:text-primary-400 transition-colors" />
+            </div>
+            <div className="min-w-0">
+              <h3 className="text-sm md:text-base font-semibold text-white truncate">
+                {method.name}
+              </h3>
+              <p className="text-xs md:text-sm text-gray-400/80 truncate mt-0.5">
+                {method.value}
+              </p>
+            </div>
+          </div>
 
-                <div className="space-y-6">
-                  <div className="flex items-start space-x-4">
-                    <div className="flex-shrink-0 p-3 rounded-lg bg-gray-700/50 text-secondary-400">
-                      <FiMapPin className="text-xl" />
-                    </div>
-                    <div>
-                      <h4 className="font-medium text-gray-300">Based in</h4>
-                      <p className="text-gray-400">Multan Punjab, Pakistan</p>
-                      <p className="text-sm text-gray-500 mt-1">Open to remote opportunities worldwide</p>
-                    </div>
-                  </div>
+          {/* Action Indicator */}
+          <div className="flex-shrink-0 ml-4">
+            <span className="inline-flex items-center text-xs md:text-sm font-medium text-gray-500 group-hover:text-primary-400 transition-colors">
+              <span className="hidden md:inline mr-1">{method.action}</span>
+              <FiArrowRight className="text-sm" />
+            </span>
+          </div>
 
-                  <div className="flex items-start space-x-4">
-                    <div className="flex-shrink-0 p-3 rounded-lg bg-gray-700/50 text-green-400">
-                      <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse" />
-                    </div>
-                    <div>
-                      <h4 className="font-medium text-gray-300">Current Status</h4>
-                      <p className="text-gray-400">Available for new projects</p>
-                      <p className="text-sm text-gray-500 mt-1">Full-time, contract, or freelance</p>
-                    </div>
-                  </div>
+          {/* Hover Effect */}
+          <div className="absolute inset-0 bg-gradient-to-br from-primary-500/5 via-primary-500/2 to-transparent opacity-0 group-hover:opacity-100 rounded-xl transition-opacity duration-300 pointer-events-none" />
+        </a>
+      </motion.article>
+    ))}
+  </div>
+</section>
 
-                  <div className="aspect-w-16 aspect-h-9 rounded-xl overflow-hidden border border-gray-700 mt-6 relative">
-                    {/* Map placeholder with subtle animation */}
-                    <div className="w-full h-64 bg-gray-800 flex items-center justify-center">
-                      <div className="text-center">
-                        <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gray-700/50 flex items-center justify-center">
-                          <FiMapPin className="text-2xl text-secondary-400 animate-bounce" />
-                        </div>
-                        <p className="text-gray-500">Multan Punjab, Pakistan</p>
-                        <p className="text-xs text-gray-600 mt-2">UTC-7 (Pacific Time)</p>
-                      </div>
-                    </div>
-                    <div className="absolute inset-0 bg-gradient-to-t from-gray-900/70 to-transparent pointer-events-none" />
-                  </div>
-                </div>
-              </div>
+             {/* Location & Availability */}
+<div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-xl p-6 md:p-8 hover:border-secondary-500/30 transition-all duration-500">
+  {/* Header */}
+  <div className="flex flex-col sm:flex-row sm:items-center mb-6 md:mb-8 gap-4">
+    <div className="p-3 rounded-lg bg-secondary-500/10 text-secondary-400 w-fit">
+      <FiMapPin className="text-xl" />
+    </div>
+    <div>
+      <h3 className="text-xl sm:text-2xl font-bold text-white">Location & Availability</h3>
+      <p className="text-sm sm:text-base text-gray-400">Where I work and when I'm available</p>
+    </div>
+  </div>
+
+  {/* Content */}
+  <div className="space-y-4 md:space-y-6">
+    {/* Location Info */}
+    <div className="flex flex-col sm:flex-row items-start gap-4 p-4 bg-gray-800/30 rounded-lg">
+      <div className="flex-shrink-0 p-2 sm:p-3 rounded-lg bg-gray-700/50 text-secondary-400">
+        <FiMapPin className="text-lg sm:text-xl" />
+      </div>
+      <div>
+        <h4 className="text-sm sm:text-base font-medium text-gray-300">Based in</h4>
+        <p className="text-gray-400">Multan Punjab, Pakistan</p>
+        <p className="text-xs sm:text-sm text-gray-500 mt-1">Open to remote opportunities worldwide</p>
+      </div>
+    </div>
+
+    {/* Availability Info */}
+    <div className="flex flex-col sm:flex-row items-start gap-4 p-4 bg-gray-800/30 rounded-lg">
+      <div className="flex-shrink-0 p-2 sm:p-3 rounded-lg bg-gray-700/50 flex items-center justify-center">
+        <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-green-500 animate-pulse" />
+      </div>
+      <div>
+        <h4 className="text-sm sm:text-base font-medium text-gray-300">Current Status</h4>
+        <p className="text-gray-400">Available for new projects</p>
+        <p className="text-xs sm:text-sm text-gray-500 mt-1">Full-time, contract, or freelance</p>
+      </div>
+    </div>
+
+    {/* Map Section */}
+    <div className="aspect-w-16 aspect-h-9 rounded-lg sm:rounded-xl overflow-hidden border border-gray-700 mt-4 sm:mt-6 relative">
+      {/* Map placeholder with subtle animation - responsive */}
+      <div className="w-full h-48 sm:h-64 bg-gray-800 flex items-center justify-center">
+        <div className="text-center px-4">
+          <div className="w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-3 sm:mb-4 rounded-full bg-gray-700/50 flex items-center justify-center">
+            <FiMapPin className="text-xl sm:text-2xl text-secondary-400 animate-bounce" />
+          </div>
+          <p className="text-sm sm:text-base text-gray-500">Multan Punjab, Pakistan</p>
+          <p className="text-xs text-gray-600 mt-1 sm:mt-2">UTC-7 (Pacific Time)</p>
+        </div>
+      </div>
+      <div className="absolute inset-0 bg-gradient-to-t from-gray-900/70 to-transparent pointer-events-none" />
+    </div>
+  </div>
+</div>
             </motion.div>
           </motion.div>
         </AnimatePresence>
