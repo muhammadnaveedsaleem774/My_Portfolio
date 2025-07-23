@@ -1,18 +1,33 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { useState, useRef, useEffect } from 'react';
+import { motion, useInView, AnimatePresence } from 'framer-motion';
 import axios from 'axios';
+import { FiMail, FiMapPin, FiPhone, FiSend, FiCheck, FiX } from 'react-icons/fi';
+import { FaLinkedinIn, FaGithub, FaTwitter, FaDiscord, FaWhatsapp } from 'react-icons/fa';
+import { SiUpwork } from 'react-icons/si';
 
 const Contact = () => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: false, amount: 0.1 });
+  const formRef = useRef();
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     message: ''
   });
-  const [status, setStatus] = useState({
-    type: '',
-    message: ''
-  });
+  const [status, setStatus] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [activeTab, setActiveTab] = useState('contact');
+  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
+  const [hoveredItem, setHoveredItem] = useState(null);
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      setCursorPosition({ x: e.clientX, y: e.clientY });
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
 
   const handleChange = (e) => {
     setFormData({
@@ -24,211 +39,565 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setStatus({ type: '', message: '' });
+    setStatus(null);
 
     try {
-      // Replace with your backend API URL
-      const response = await axios.post('http://localhost:5000/api/contact', formData);
+      await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate network delay
+      const response = await axios.post('https://api.yourportfolio.com/contact', formData);
       setStatus({
         type: 'success',
-        message: 'Thank you for your message! I will get back to you soon.'
+        message: 'Message sent successfully! I\'ll get back to you soon.'
       });
       setFormData({ name: '', email: '', message: '' });
+      formRef.current.reset();
     } catch (error) {
       setStatus({
         type: 'error',
-        message: 'Oops! Something went wrong. Please try again later.'
+        message: error.response?.data?.message || 'Failed to send message. Please try again later.'
       });
     } finally {
       setLoading(false);
     }
   };
 
-  const socialLinks = [
+  const professionalInfo = [
+    {
+      title: "Availability",
+      value: "Open to opportunities",
+      icon: <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse mr-2" />
+    },
+    {
+      title: "Preferred Roles",
+      value: "Full-stack, Frontend, or UI/UX",
+      icon: <FiCheck className="text-green-400 mr-2" />
+    },
+    {
+      title: "Remote Work",
+      value: "Fully remote or hybrid",
+      icon: <FiMapPin className="text-blue-400 mr-2" />
+    },
+    {
+      title: "Response Time",
+      value: "Within 24 hours",
+      icon: <FiPhone className="text-purple-400 mr-2" />
+    }
+  ];
+
+  const contactMethods = [
     {
       name: 'Email',
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-        </svg>
-      ),
-      href: 'mailto:mail12@gmail.com'
+      value: 'muhammadnaveedsaleem774@gmail.com',
+      href: 'mailto:muhammadnaveedsaleem774@gmail.com',
+      icon: <FiMail className="text-red-400" />,
+      action: 'Send me an email'
     },
     {
       name: 'LinkedIn',
-      icon: (
-        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-        </svg>
-      ),
-      href: 'https://linkedin.com/in/muhammad-naveed-saleem'
+      value: 'muhammad-naveed-saleem',
+      href: 'https://linkedin.com/in/muhammad-naveed-saleem',
+      icon: <FaLinkedinIn className="text-blue-500" />,
+      action: 'Connect professionally'
     },
     {
       name: 'GitHub',
-      icon: (
-        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-        </svg>
-      ),
-      href: 'https://github.com/yourusername'
+      value: 'muhammadnaveedsaleem774',
+      href: 'https://github.com/muhammadnaveedsaleem774',
+      icon: <FaGithub className="text-gray-100" />,
+      action: 'View my code'
     },
     {
-      name: 'Twitter',
-      icon: (
-        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
-        </svg>
-      ),
-      href: 'https://twitter.com/yourusername'
+      name: 'Upwork',
+      value: 'Muhammad Naveed Saleem',
+      href: 'https://www.upwork.com/freelancers/~014163b572e684c07c?mp_source=share',
+      icon: <SiUpwork className="text-green-500" />,
+      action: 'Hire me'
+    }
+  ];
+
+  const quickLinks = [
+    {
+      name: 'Resume',
+      href: '/naveedresume.pdf',
+      icon: <span className="text-xs font-bold">CV</span>,
+      description: 'Download my latest resume'
+    },
+    {
+      name: 'Projects',
+      href: '/projects',
+      icon: <span className="text-xs font-bold">PJ</span>,
+      description: 'View my portfolio'
+    },
+    {
+      name: 'Blog',
+      href: '#blog',
+      icon: <span className="text-xs font-bold">BL</span>,
+      description: 'Read my articles'
+    },
+    {
+      name: 'Testimonials',
+      href: '#testimonials',
+      icon: <span className="text-xs font-bold">TM</span>,
+      description: 'See client feedback'
     }
   ];
 
   return (
-    <div className="min-h-screen py-12 bg-gradient-to-br from-gray-900 to-cyan-900bg-gradient-to-br from-gray-900 to-cyan-900">
-      <div className="max-w-7xl mx-auto px-4">
-        {/* Header */}
+    <section 
+      id="contact" 
+      ref={ref} 
+      className="relative py-28 bg-gradient-to-br from-gray-900 to-gray-950 overflow-hidden"
+    >
+      {/* Animated cursor follower */}
+      <motion.div
+        className="fixed pointer-events-none z-0 w-80 h-80 rounded-full bg-radial-gradient from-primary-500/5 to-transparent"
+        animate={{
+          x: cursorPosition.x - 160,
+          y: cursorPosition.y - 160,
+          transition: { type: 'spring', mass: 0.1 }
+        }}
+      />
+
+      {/* Decorative elements */}
+      <div className="absolute inset-0 overflow-hidden opacity-10">
+        <motion.div 
+          className="absolute top-1/4 left-1/4 w-64 h-64 bg-primary-500 rounded-full mix-blend-overlay filter blur-3xl opacity-5"
+          animate={{
+            scale: [1, 1.2, 1],
+            translateX: ['0%', '5%', '0%'],
+          }}
+          transition={{
+            duration: 15,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+        />
+        <motion.div 
+          className="absolute bottom-1/3 right-1/3 w-72 h-72 bg-secondary-500 rounded-full mix-blend-overlay filter blur-3xl opacity-5"
+          animate={{
+            scale: [1, 1.3, 1],
+            translateY: ['0%', '10%', '0%'],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: 'easeInOut',
+            delay: 3
+          }}
+        />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        {/* Section header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h1 className="text-4xl md:text-5xl font-sans font-bold mb-4 bg-gradient-to-r from-cyan-400 to-indigo-400 text-transparent bg-clip-text">
-            Get in Touch
-          </h1>
-          <p className="text-gray-300 font-serif max-w-2xl mx-auto">
-            Have a question or want to work together? Feel free to reach out!
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-secondary-400 tracking-tight">
+            Let's Connect
+          </h2>
+          <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
+            Whether you have a project in mind or just want to chat about tech, I'd love to hear from you.
           </p>
-        </motion.div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
-          {/* Contact Form */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-            className=" p-8 rounded-xl shadow-lg border border-cyan-700"
-          >
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label htmlFor="name" className="block text-gray-300 font-medium mb-2">
-                  Name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-2 bg-cyan-500/10 border border-cyan-700 text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  placeholder="Your name"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="email" className="block text-gray-300 font-medium mb-2">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 bg-cyan-500/10 py-2 border border-cyan-700 text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  placeholder="example2@gmail.com"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="message" className="block text-gray-300 font-medium mb-2">
-                  Message
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                  rows="5"
-                  className="w-full px-4 py-2 bg-cyan-500/10 border border-cyan-700 text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  placeholder="Your message..."
-                ></textarea>
-              </div>
-
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full py-3 px-6 bg-cyan-500/10 text-white rounded-lg hover:bg-cyan-500/20 transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {loading ? (
-                  <span className="flex items-center justify-center">
-                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                    Sending...
-                  </span>
-                ) : 'Send Message'}
-              </button>
-
-              {status.message && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className={`p-4 rounded-lg ${
-                    status.type === 'success' ? 'bg-green-900 text-green-300 border border-green-700' : 'bg-red-900 text-red-300 border border-red-700'
+          
+          {/* Animated tabs */}
+          <div className="flex justify-center mt-8">
+            <div className="inline-flex bg-gray-800 rounded-lg p-1">
+              {['contact', 'quick links', 'professional'].map((tab) => (
+                <button
+                  key={tab}
+                  onClick={() => setActiveTab(tab)}
+                  className={`px-4 py-2 text-sm font-medium rounded-md transition-all duration-300 ${
+                    activeTab === tab
+                      ? 'bg-gray-700 text-white shadow-sm'
+                      : 'text-gray-400 hover:text-white'
                   }`}
                 >
-                  {status.message}
-                </motion.div>
-              )}
-            </form>
-          </motion.div>
+                  {tab}
+                </button>
+              ))}
+            </div>
+          </div>
+        </motion.div>
 
-          {/* Contact Information */}
+        <AnimatePresence mode="wait">
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="space-y-8"
+            key={activeTab}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.3 }}
+            className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start"
           >
-            {/* Connect Section */}
-            <div className=" p-8 rounded-xl shadow-lg border border-gray-700">
-              <h2 className="text-2xl font-bold mb-6 text-white">Let's Connect</h2>
-              <div className="space-y-6">
-                {socialLinks.map((link) => (
-                  <motion.a
-                    key={link.name}
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center space-x-4 text-gray-300 hover:text-blue-400 transition duration-300"
-                    whileHover={{ x: 10 }}
-                  >
-                    <div className="w-12 h-12 flex items-center justify-center bg-gray-700 rounded-lg">
-                      {link.icon}
-                    </div>
-                    <span className="font-medium">{link.name}</span>
-                  </motion.a>
-                ))}
-              </div>
-            </div>
+            {/* Left Column - Contact Form */}
+            {(activeTab === 'contact') && (
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={isInView ? { opacity: 1, x: 0 } : {}}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-xl p-8 hover:border-primary-500/30 transition-all duration-500"
+              >
+                <div className="flex items-center mb-8">
+                  <div className="p-3 rounded-lg bg-primary-500/10 text-primary-400 mr-4">
+                    <FiSend className="text-xl" />
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold text-white">Send a Message</h3>
+                    <p className="text-gray-400">I typically respond within 24 hours</p>
+                  </div>
+                </div>
 
-            {/* Location */}
-            <div className=" p-8 rounded-xl shadow-lg border border-cyan-700">
-              <h2 className="text-2xl font-bold mb-6 text-white">Location</h2>
-              <p className="text-gray-300">
-                Based in Multan, Pakistan<br />
-                Available for remote work worldwide
-              </p>
-            </div>
+                <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
+                  <div className="space-y-1">
+                    <label htmlFor="name" className="block text-sm font-medium text-gray-300">
+                      Your Name
+                    </label>
+                    <div className="relative">
+                      <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        required
+                        className="w-full px-4 py-3 bg-gray-700/30 border border-gray-700 text-white rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 placeholder-gray-500"
+                        placeholder="Enter Name"
+                      />
+                      <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                        <span className="text-gray-500 text-sm">01/03</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-1">
+                    <label htmlFor="email" className="block text-sm font-medium text-gray-300">
+                      Email Address
+                    </label>
+                    <div className="relative">
+                      <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
+                        className="w-full px-4 py-3 bg-gray-700/30 border border-gray-700 text-white rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 placeholder-gray-500"
+                        placeholder="navid@example.com"
+                      />
+                      <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                        <span className="text-gray-500 text-sm">02/03</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-1">
+                    <label htmlFor="message" className="block text-sm font-medium text-gray-300">
+                      Your Message
+                    </label>
+                    <div className="relative">
+                      <textarea
+                        id="message"
+                        name="message"
+                        value={formData.message}
+                        onChange={handleChange}
+                        required
+                        rows="5"
+                        className="w-full px-4 py-3 bg-gray-700/30 border border-gray-700 text-white rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 placeholder-gray-500"
+                        placeholder="Tell me about your project..."
+                      ></textarea>
+                      <div className="absolute bottom-3 right-3 flex items-center pointer-events-none">
+                        <span className="text-gray-500 text-sm">03/03</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="pt-2">
+                    <motion.button
+                      type="submit"
+                      disabled={loading}
+                      className="w-full group relative overflow-hidden rounded-lg bg-gradient-to-r from-primary-600 to-primary-700 py-3 px-6 font-medium text-white shadow-lg transition-all duration-300 hover:shadow-xl disabled:opacity-70"
+                      whileHover={{ y: -2 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <span className="relative z-10 flex items-center justify-center space-x-2">
+                        {loading ? (
+                          <>
+                            <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            <span>Sending...</span>
+                          </>
+                        ) : (
+                          <>
+                            <FiSend className="transition-transform group-hover:translate-x-1" />
+                            <span>Send Message</span>
+                          </>
+                        )}
+                      </span>
+                      <span className="absolute inset-0 bg-gradient-to-r from-primary-700 to-primary-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+                    </motion.button>
+                  </div>
+
+                  {status && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: 'auto' }}
+                      className={`rounded-lg p-4 ${
+                        status.type === 'success' 
+                          ? 'bg-green-900/30 text-green-400 border border-green-800' 
+                          : 'bg-red-900/30 text-red-400 border border-red-800'
+                      }`}
+                    >
+                      <div className="flex items-start">
+                        {status.type === 'success' ? (
+                          <FiCheck className="flex-shrink-0 mt-1 mr-3 text-xl" />
+                        ) : (
+                          <FiX className="flex-shrink-0 mt-1 mr-3 text-xl" />
+                        )}
+                        <div>{status.message}</div>
+                      </div>
+                    </motion.div>
+                  )}
+                </form>
+              </motion.div>
+            )}
+
+            {/* Left Column - Quick Links */}
+            {(activeTab === 'quick links') && (
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={isInView ? { opacity: 1, x: 0 } : {}}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-xl p-8 hover:border-secondary-500/30 transition-all duration-500"
+              >
+                <div className="flex items-center mb-8">
+                  <div className="p-3 rounded-lg bg-secondary-500/10 text-secondary-400 mr-4">
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold text-white">Quick Links</h3>
+                    <p className="text-gray-400">Access important resources quickly</p>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {quickLinks.map((link, index) => (
+                    <motion.a
+                      key={link.name}
+                      href={link.href}
+                      className="group relative overflow-hidden bg-gray-800/50 border border-gray-700 rounded-lg p-4 transition-all duration-300 hover:border-secondary-500/50 hover:bg-gray-700/30"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: index * 0.1 }}
+                      onMouseEnter={() => setHoveredItem(`quick-${index}`)}
+                      onMouseLeave={() => setHoveredItem(null)}
+                    >
+                      <div className="flex items-start space-x-3">
+                        <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-gray-700 group-hover:bg-secondary-500/10 flex items-center justify-center transition-colors duration-300">
+                          {link.icon}
+                        </div>
+                        <div>
+                          <h4 className="font-medium text-white group-hover:text-secondary-400 transition-colors duration-300">
+                            {link.name}
+                          </h4>
+                          <p className="text-sm text-gray-400">{link.description}</p>
+                        </div>
+                      </div>
+                      <motion.div
+                        className="absolute inset-0 bg-gradient-to-br from-secondary-500/5 to-transparent opacity-0 group-hover:opacity-100"
+                        initial={{ opacity: 0 }}
+                        animate={{
+                          opacity: hoveredItem === `quick-${index}` ? 0.1 : 0
+                        }}
+                        transition={{ duration: 0.3 }}
+                      />
+                    </motion.a>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+
+            {/* Left Column - Professional Info */}
+            {(activeTab === 'professional') && (
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={isInView ? { opacity: 1, x: 0 } : {}}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-xl p-8 hover:border-indigo-500/30 transition-all duration-500"
+              >
+                <div className="flex items-center mb-8">
+                  <div className="p-3 rounded-lg bg-indigo-500/10 text-indigo-400 mr-4">
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold text-white">Professional Info</h3>
+                    <p className="text-gray-400">Details for recruiters and collaborators</p>
+                  </div>
+                </div>
+
+                <div className="space-y-6">
+                  {professionalInfo.map((info, index) => (
+                    <motion.div
+                      key={info.title}
+                      className="flex items-start space-x-4 p-4 bg-gray-800/30 rounded-lg border border-gray-700/50 hover:border-indigo-500/50 transition-colors duration-300"
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.1 }}
+                      onMouseEnter={() => setHoveredItem(`professional-${index}`)}
+                      onMouseLeave={() => setHoveredItem(null)}
+                    >
+                      <div className="flex-shrink-0 pt-1">
+                        {info.icon}
+                      </div>
+                      <div>
+                        <h4 className="font-medium text-gray-300">{info.title}</h4>
+                        <p className="text-gray-400">{info.value}</p>
+                      </div>
+                      <motion.div
+                        className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-transparent opacity-0"
+                        initial={{ opacity: 0 }}
+                        animate={{
+                          opacity: hoveredItem === `professional-${index}` ? 0.1 : 0
+                        }}
+                        transition={{ duration: 0.3 }}
+                      />
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+
+            {/* Right Column - Contact Information */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={isInView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              className="space-y-8"
+            >
+              {/* Contact Methods */}
+              <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-xl p-8 hover:border-primary-500/30 transition-all duration-500">
+                <div className="flex items-center mb-8">
+                  <div className="p-3 rounded-lg bg-primary-500/10 text-primary-400 mr-4">
+                    <FiPhone className="text-xl" />
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold text-white">Contact Methods</h3>
+                    <p className="text-gray-400">Choose your preferred way to reach me</p>
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  {contactMethods.map((method, index) => (
+                    <motion.a
+                      key={method.name}
+                      href={method.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group flex items-center justify-between p-4 rounded-lg bg-gray-800/30 border border-gray-700/50 hover:border-primary-500/50 transition-all duration-300"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: index * 0.1 }}
+                      onMouseEnter={() => setHoveredItem(`contact-${index}`)}
+                      onMouseLeave={() => setHoveredItem(null)}
+                    >
+                      <div className="flex items-center space-x-4">
+                        <div className="p-3 rounded-lg bg-gray-700/50 group-hover:bg-primary-500/10 transition-colors duration-300">
+                          {method.icon}
+                        </div>
+                        <div>
+                          <h4 className="font-medium text-white">{method.name}</h4>
+                          <p className="text-sm text-gray-400">{method.value}</p>
+                        </div>
+                      </div>
+                      <div className="text-xs text-gray-500 group-hover:text-primary-400 transition-colors duration-300">
+                        {method.action} →
+                      </div>
+                      <motion.div
+                        className="absolute inset-0 bg-gradient-to-br from-primary-500/5 to-transparent opacity-0"
+                        initial={{ opacity: 0 }}
+                        animate={{
+                          opacity: hoveredItem === `contact-${index}` ? 0.1 : 0
+                        }}
+                        transition={{ duration: 0.3 }}
+                      />
+                    </motion.a>
+                  ))}
+                </div>
+              </div>
+
+              {/* Location & Availability */}
+              <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-xl p-8 hover:border-secondary-500/30 transition-all duration-500">
+                <div className="flex items-center mb-8">
+                  <div className="p-3 rounded-lg bg-secondary-500/10 text-secondary-400 mr-4">
+                    <FiMapPin className="text-xl" />
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold text-white">Location & Availability</h3>
+                    <p className="text-gray-400">Where I work and when I'm available</p>
+                  </div>
+                </div>
+
+                <div className="space-y-6">
+                  <div className="flex items-start space-x-4">
+                    <div className="flex-shrink-0 p-3 rounded-lg bg-gray-700/50 text-secondary-400">
+                      <FiMapPin className="text-xl" />
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-gray-300">Based in</h4>
+                      <p className="text-gray-400">Multan Punjab, Pakistan</p>
+                      <p className="text-sm text-gray-500 mt-1">Open to remote opportunities worldwide</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start space-x-4">
+                    <div className="flex-shrink-0 p-3 rounded-lg bg-gray-700/50 text-green-400">
+                      <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse" />
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-gray-300">Current Status</h4>
+                      <p className="text-gray-400">Available for new projects</p>
+                      <p className="text-sm text-gray-500 mt-1">Full-time, contract, or freelance</p>
+                    </div>
+                  </div>
+
+                  <div className="aspect-w-16 aspect-h-9 rounded-xl overflow-hidden border border-gray-700 mt-6 relative">
+                    {/* Map placeholder with subtle animation */}
+                    <div className="w-full h-64 bg-gray-800 flex items-center justify-center">
+                      <div className="text-center">
+                        <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gray-700/50 flex items-center justify-center">
+                          <FiMapPin className="text-2xl text-secondary-400 animate-bounce" />
+                        </div>
+                        <p className="text-gray-500">Multan Punjab, Pakistan</p>
+                        <p className="text-xs text-gray-600 mt-2">UTC-7 (Pacific Time)</p>
+                      </div>
+                    </div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-gray-900/70 to-transparent pointer-events-none" />
+                  </div>
+                </div>
+              </div>
+            </motion.div>
           </motion.div>
-        </div>
+        </AnimatePresence>
+
+        {/* Footer note */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ delay: 0.8 }}
+          className="text-center mt-16 pt-8 border-t border-gray-800/50"
+        >
+          <p className="text-gray-500">
+            Made with ❤️ by M.Navid Saleem • Last updated {new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+          </p>
+        </motion.div>
       </div>
-    </div>
+    </section>
   );
 };
 

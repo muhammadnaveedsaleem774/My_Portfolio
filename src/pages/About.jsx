@@ -1,361 +1,508 @@
 import { motion } from 'framer-motion';
 import myImage from '../assets/mypro.jpg';
+import { FaGraduationCap, FaCode, FaServer, FaDatabase, FaPalette, FaMobileAlt } from 'react-icons/fa';
+import { SiTypescript, SiNextdotjs, SiFirebase } from 'react-icons/si';
+import { TbBrandCpp } from 'react-icons/tb';
 
 const About = () => {
+  // Education data
   const education = [
     {
       degree: 'BS in Computer Science',
       school: 'Bahauddin Zakariya University, Multan',
       year: '2022 - 2026',
-      description:
-        'Currently pursuing a degree in Computer Science with a strong focus on full-stack web development, software engineering, and real-world problem solving.',
+      description: 'Currently pursuing a degree in Computer Science with a strong focus on full-stack web development, software engineering, and real-world problem solving.',
+      icon: <FaGraduationCap className="text-blue-400" />
     },
     {
       degree: 'FSc (Pre-Medical)',
       school: 'Punjab Group of Colleges, Multan',
       year: '2019 - 2021',
-      description:
-        'Scored 1013 out of 1100 marks in FSc (Pre-Medical). Currently pursuing a degree in Computer Science with a strong focus on full-stack web development, software engineering, and real-world problem solving.',
+      description: 'Scored 1013 out of 1100 marks in FSc (Pre-Medical). Developed strong analytical and problem-solving skills.',
+      icon: <FaGraduationCap className="text-purple-400" />
     }
-    ,
   ];
 
+  // Animation variants
   const fadeInUp = {
     initial: { opacity: 0, y: 20 },
     animate: { opacity: 1, y: 0 },
     transition: { duration: 0.5 },
   };
 
-  const skills = [
+  const staggerContainer = {
+    animate: {
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  // Skills data organized by category
+  const skillCategories = [
     {
-      name: 'React.js',
-      icon: 'https://cdn.worldvectorlogo.com/logos/react-2.svg',
-      description: [
-        { no: '1.', name: 'Built SPAs with functional components' },
-        { no: '2.', name: 'State management with Redux Toolkit' },
-        { no: '3.', name: 'Responsive UIs using React Router' },
-        { no: '4.', name: 'Performance optimization techniques' },
-        { no: '5.', name: 'Reusable component libraries' }
-      ],
-      experience: '2 years'
+      name: 'Frontend Development',
+      icon: <FaCode className="text-blue-400" />,
+      skills: [
+        {
+          name: 'React.js',
+          icon: 'https://cdn.worldvectorlogo.com/logos/react-2.svg',
+          experience: '2 years',
+          proficiency: 90,
+          projects: 15
+        },
+        {
+          name: 'Next.js',
+          icon: <SiNextdotjs className="text-white" />,
+          experience: '1 year',
+          proficiency: 85,
+          projects: 8
+        },
+        {
+          name: 'TypeScript',
+          icon: <SiTypescript className="text-blue-500" />,
+          experience: '1.5 years',
+          proficiency: 80,
+          projects: 12
+        }
+      ]
     },
     {
-      name: 'Node.js',
-      icon: 'https://cdn.worldvectorlogo.com/logos/nodejs-icon.svg',
-      description: [
-        { no: '1.', name: 'RESTful API development' },
-        { no: '2.', name: 'Server-side applications' },
-        { no: '3.', name: 'Asynchronous programming' },
-        { no: '4.', name: 'Middleware implementation' },
-        { no: '5.', name: 'Error handling strategies' }
-      ],
-      experience: '1.5 years'
+      name: 'Backend Development',
+      icon: <FaServer className="text-purple-400" />,
+      skills: [
+        {
+          name: 'Node.js',
+          icon: 'https://cdn.worldvectorlogo.com/logos/nodejs-icon.svg',
+          experience: '1.5 years',
+          proficiency: 85,
+          projects: 10
+        },
+        {
+          name: 'Express.js',
+          icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg',
+          experience: '1.5 years',
+          proficiency: 80,
+          projects: 10,
+          className: "filter invert"
+        }
+      ]
     },
     {
-      name: 'Express.js',
-      icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg',
-      description: [
-        { no: '1.', name: 'Backend service creation' },
-        { no: '2.', name: 'Middleware development' },
-        { no: '3.', name: 'Route handling' },
-        { no: '4.', name: 'API security practices' },
-        { no: '5.', name: 'Server optimization' }
-      ],
-      experience: '1.5 years',
-      className: "h-8 w-8 object-contain filter invert"
+      name: 'Database & Cloud',
+      icon: <FaDatabase className="text-indigo-400" />,
+      skills: [
+        {
+          name: 'MongoDB',
+          icon: 'https://cdn.worldvectorlogo.com/logos/mongodb-icon-1.svg',
+          experience: '1 year',
+          proficiency: 75,
+          projects: 7
+        },
+        {
+          name: 'Firebase',
+          icon: <SiFirebase className="text-yellow-400" />,
+          experience: '8 months',
+          proficiency: 70,
+          projects: 5
+        }
+      ]
     },
     {
-      name: 'MongoDB',
-      icon: 'https://cdn.worldvectorlogo.com/logos/mongodb-icon-1.svg',
-      description: [
-        { no: '1.', name: 'NoSQL database design' },
-        { no: '2.', name: 'CRUD operations' },
-        { no: '3.', name: 'Schema validation' },
-        { no: '4.', name: 'Indexing strategies' },
-        { no: '5.', name: 'Aggregation pipelines' }
-      ],
-      experience: '1 year'
+      name: 'UI/UX Design',
+      icon: <FaPalette className="text-pink-400" />,
+      skills: [
+        {
+          name: 'Tailwind CSS',
+          icon: 'https://cdn.worldvectorlogo.com/logos/tailwind-css-2.svg',
+          experience: '1 year',
+          proficiency: 90,
+          projects: 15
+        },
+        {
+          name: 'Framer Motion',
+          icon: 'https://cdn.worldvectorlogo.com/logos/framer-motion.svg',
+          experience: '1 year',
+          proficiency: 80,
+          projects: 10
+        }
+      ]
     },
     {
-      name: 'Tailwind CSS',
-      icon: 'https://cdn.worldvectorlogo.com/logos/tailwind-css-2.svg',
-      description: [
-        { no: '1.', name: 'Utility-first CSS' },
-        { no: '2.', name: 'Responsive design' },
-        { no: '3.', name: 'Component styling' },
-        { no: '4.', name: 'Dark mode implementation' },
-        { no: '5.', name: 'Custom theme creation' }
-      ],
-      experience: '1 year'
-    },
-    {
-      name: 'Firebase',
-      icon: 'https://cdn.worldvectorlogo.com/logos/firebase-1.svg',
-      description: [
-        { no: '1.', name: 'Authentication services' },
-        { no: '2.', name: 'Realtime database' },
-        { no: '3.', name: 'Cloud functions' },
-        { no: '4.', name: 'Hosting solutions' },
-        { no: '5.', name: 'Performance monitoring' }
-      ],
-      experience: '8 months'
-    },
-    {
-      name: 'Next.js',
-      icon: 'https://cdn.worldvectorlogo.com/logos/next-js.svg',
-      description: [
-        { no: '1.', name: 'SSR applications' },
-        { no: '2.', name: 'Static site generation' },
-        { no: '3.', name: 'API routes' },
-        { no: '4.', name: 'Image optimization' },
-        { no: '5.', name: 'Middleware usage' }
-      ],
-      experience: '1 year'
-    },
-    {
-      name: 'JavaScript',
-      icon: 'https://cdn.worldvectorlogo.com/logos/javascript-1.svg',
-      description: [
-        { no: '1.', name: 'ES6+ features' },
-        { no: '2.', name: 'Asynchronous programming' },
-        { no: '3.', name: 'DOM manipulation' },
-        { no: '4.', name: 'Event handling' },
-        { no: '5.', name: 'Modern frameworks' }
-      ],
-      experience: '3 years'
-    },
-    {
-      name: 'HTML5',
-      icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg',
-      description: [
-        { no: '1.', name: 'Semantic markup' },
-        { no: '2.', name: 'Accessibility standards' },
-        { no: '3.', name: 'Form validation' },
-        { no: '4.', name: 'Canvas/SVG usage' },
-        { no: '5.', name: 'SEO best practices' }
-      ],
-      experience: '4 years',
-      className: "h-8 w-8 object-contain"
-    },
-    {
-      name: 'CSS3',
-      icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg',
-      description: [
-        { no: '1.', name: 'Responsive design' },
-        { no: '2.', name: 'Flexbox/Grid layouts' },
-        { no: '3.', name: 'CSS animations' },
-        { no: '4.', name: 'Preprocessors (Sass)' },
-        { no: '5.', name: 'BEM methodology' }
-      ],
-      experience: '4 years',
-      className: "h-8 w-8 object-contain"
-    },
-    {
-      name: 'Bootstrap',
-      icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg',
-      description: [
-        { no: '1.', name: 'Rapid prototyping' },
-        { no: '2.', name: 'Component library' },
-        { no: '3.', name: 'Responsive utilities' },
-        { no: '4.', name: 'Custom theming' },
-        { no: '5.', name: 'Mobile-first approach' }
-      ],
-      experience: '3 years',
-      className: "h-8 w-8 object-contain"
-    },
-    {
-      name: 'Python',
-      icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg',
-      description: [
-        { no: '1.', name: 'Scripting automation' },
-        { no: '2.', name: 'Data analysis (Pandas)' },
-        { no: '3.', name: 'Django/Flask frameworks' },
-        { no: '4.', name: 'Web scraping' },
-        { no: '5.', name: 'Algorithm implementation' }
-      ],
-      experience: '3 years',
-      className: "h-8 w-8 object-contain"
-    },
-    {
-      name: 'C++',
-      icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg',
-      description: [
-        { no: '1.', name: 'Data structures' },
-        { no: '2.', name: 'Algorithm design' },
-        { no: '3.', name: 'Memory management' },
-        { no: '4.', name: 'OOP principles' },
-        { no: '5.', name: 'STL usage' }
-      ],
-      experience: '2 years',
-      className: "h-8 w-8 object-contain filter brightness-0 invert"
+      name: 'Other Technologies',
+      icon: <FaMobileAlt className="text-green-400" />,
+      skills: [
+        {
+          name: 'C++',
+          icon: <TbBrandCpp className="text-blue-400" />,
+          experience: '2 years',
+          proficiency: 75,
+          projects: 5
+        },
+        {
+          name: 'Python',
+          icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg',
+          experience: '3 years',
+          proficiency: 80,
+          projects: 8
+        }
+      ]
     }
   ];
+
+  // Experience data
+  const experiences = [
+    {
+      role: 'Freelance Full-Stack Developer',
+      company: 'Self-Employed',
+      period: '2022 - Present',
+      description: 'Developed and deployed 15+ web applications for clients across various industries. Specialized in MERN stack applications with responsive design and performance optimization.',
+      technologies: ['React', 'Node.js', 'MongoDB', 'Tailwind CSS'],
+      icon: <FaCode className="text-blue-400" />
+    },
+    {
+      role: 'Open Source Contributor',
+      company: 'GitHub Community',
+      period: '2021 - Present',
+      description: 'Contributed to various open-source projects, fixing bugs and implementing new features. Maintained several personal projects with 100+ stars on GitHub.',
+      technologies: ['JavaScript', 'TypeScript', 'Next.js', 'Firebase'],
+      icon: <FaServer className="text-purple-400" />
+    }
+  ];
+
   return (
-    <div className="min-h-screen py-12 relative overflow-hidden bg-gradient-to-br from-gray-900 to-cyan-900">
-      {/* Background Animation */}
-      <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="w-[600px] h-[600px] bg-purple-900 opacity-10 rounded-full blur-3xl absolute top-0 -left-40 animate-pulse"></div>
-        <div className="w-[400px] h-[400px] bg-blue-900 opacity-10 rounded-full blur-2xl absolute bottom-0 -right-32 animate-spin-slow"></div>
+    <div className="min-h-screen bg-dark-900 text-gray-100 relative overflow-hidden">
+      {/* Floating background elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <motion.div
+          className="absolute top-20 left-20 w-64 h-64 bg-blue-900 rounded-full opacity-10 blur-3xl"
+          animate={{
+            x: [0, 20, 0],
+            y: [0, 30, 0],
+          }}
+          transition={{
+            duration: 15,
+            repeat: Infinity,
+            repeatType: "reverse",
+            ease: "easeInOut"
+          }}
+        />
+        <motion.div
+          className="absolute bottom-10 right-10 w-80 h-80 bg-purple-900 rounded-full opacity-10 blur-3xl"
+          animate={{
+            x: [0, -30, 0],
+            y: [0, -20, 0],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            repeatType: "reverse",
+            ease: "easeInOut",
+            delay: 2
+          }}
+        />
       </div>
 
-      
-      <div className="max-w-6xl  mx-auto px-6">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-16"
-        >
-          <h1 className="text-3xl  sm:text-4xl md:text-5xl lg:text-5xl font-sans font-extrabold bg-gradient-to-r from-blue-600 to-purple-600 text-transparent bg-clip-text">
-            Muhammad Naveed Saleem
-          </h1>
-          <p className="text-lg font-serif text-gray-300 mt-2">Aspiring Full-Stack Developer & AI Enthusiast</p>
-          <div className="w-24 h-1 bg-blue-600 mx-auto mt-4 rounded-full"></div>
-        </motion.div>
-
-        {/* Content Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-        <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            className="relative flex justify-center"
-          >
-            <div className="relative w-64 h-64 sm:w-80 sm:h-80 rounded-full overflow-hidden border-4 border-blue-500/20 shadow-2xl">
-              <img
-                src={myImage}
-                alt="Muhammad Naveed Saleem"
-                className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-              />
-              <div className="absolute inset-0 rounded-full border-2 border-white/10 pointer-events-none"></div>
-            </div>
-            <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-blue-500 rounded-full z-[-1] opacity-20 animate-pulse"></div>
-            <div className="absolute -top-6 -left-6 w-32 h-32 bg-purple-500 rounded-full z-[-1] opacity-20 animate-pulse-slow"></div>
-          </motion.div>
-
-          {/* Bio Content */}
+      <div className="max-w-7xl mx-auto px-6 py-16 relative z-10">
+        {/* Hero Section */}
+        <section className="mb-24">
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="space-y-6"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="flex flex-col lg:flex-row items-center gap-12"
           >
-            <h2 className="text-3xl font-sans font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
-              Muhammad Naveed Saleem
-            </h2>
-            <p className="text-lg font-serif text-gray-300 leading-relaxed">
-              I'm a passionate Full-Stack Developer specializing in the MERN stack, with expertise in building responsive, 
-              performant web applications. My journey in tech combines formal education with hands-on experience creating 
-              real-world solutions.
-            </p>
-            
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="bg-gray-800/50 backdrop-blur-sm p-4 rounded-xl border border-gray-700/50 hover:border-blue-400/30 transition-all">
-                <div className="flex items-center space-x-4">
-                  <div className="p-3 bg-blue-500/10 rounded-lg">
-                    <svg className="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-white">Experience</h3>
-                    <p className="text-sm text-gray-400">2+ years building web applications</p>
-                  </div>
-                </div>
+            {/* Profile Image */}
+            <motion.div
+              className="relative w-64 h-64 lg:w-80 lg:h-80"
+              whileHover={{ scale: 1.02 }}
+            >
+              <div className="absolute inset-0 rounded-2xl border-4 border-primary-500/30 shadow-2xl overflow-hidden">
+                <img
+                  src={myImage}
+                  alt="Muhammad Naveed Saleem"
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                />
               </div>
+              <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-primary-500 rounded-full z-[-1] opacity-20 animate-pulse"></div>
+              <div className="absolute -top-6 -left-6 w-32 h-32 bg-secondary-500 rounded-full z-[-1] opacity-20 animate-pulse-slow"></div>
+            </motion.div>
 
-              <div className="bg-gray-800/50 backdrop-blur-sm p-4 rounded-xl border border-gray-700/50 hover:border-purple-400/30 transition-all">
-                <div className="flex items-center space-x-4">
-                  <div className="p-3 bg-purple-500/10 rounded-lg">
-                    <svg className="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-white">Specialization</h3>
-                    <p className="text-sm text-gray-400">MERN Stack & Responsive Design</p>
-                  </div>
+            {/* Bio Content */}
+            <div className="flex-1">
+              <motion.h1
+                className="text-4xl sm:text-5xl font-bold mb-4 bg-gradient-to-r from-primary-400 to-secondary-500 text-transparent bg-clip-text"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.2 }}
+              >
+                Muhammad Naveed Saleem
+              </motion.h1>
+              
+              <motion.div
+                className="text-xl text-gray-300 mb-6 font-serif"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.3 }}
+              >
+                Full-Stack Developer & AI Enthusiast
+              </motion.div>
+              
+              <motion.p
+                className="text-lg text-gray-400 mb-8 leading-relaxed"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.4 }}
+              >
+                I specialize in building modern, performant web applications with cutting-edge technologies. 
+                My passion lies in creating intuitive user experiences while ensuring robust backend architecture.
+              </motion.p>
+
+              {/* Stats Grid */}
+              <motion.div
+                className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.5 }}
+              >
+                <div className="bg-dark-800/50 backdrop-blur-sm p-4 rounded-xl border border-dark-700 hover:border-primary-500/30 transition-all">
+                  <div className="text-primary-400 text-2xl font-bold">15+</div>
+                  <div className="text-gray-400 text-sm">Projects Completed</div>
                 </div>
-              </div>
+                <div className="bg-dark-800/50 backdrop-blur-sm p-4 rounded-xl border border-dark-700 hover:border-secondary-500/30 transition-all">
+                  <div className="text-secondary-400 text-2xl font-bold">2+</div>
+                  <div className="text-gray-400 text-sm">Years Experience</div>
+                </div>
+                <div className="bg-dark-800/50 backdrop-blur-sm p-4 rounded-xl border border-dark-700 hover:border-indigo-500/30 transition-all">
+                  <div className="text-indigo-400 text-2xl font-bold">12+</div>
+                  <div className="text-gray-400 text-sm">Technologies</div>
+                </div>
+              </motion.div>
+
+              {/* Call to Action */}
+              <motion.div
+                className="flex flex-wrap gap-4"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.6 }}
+              >
+                <a
+                  href="/contact"
+                  className="px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white rounded-lg font-medium transition-colors duration-300 shadow-lg hover:shadow-primary-500/30"
+                >
+                  Contact Me
+                </a>
+                <a
+                  href="/projects"
+                  className="px-6 py-3 bg-dark-700 hover:bg-dark-600 text-white rounded-lg font-medium transition-colors duration-300 shadow-lg hover:shadow-gray-500/20 border border-dark-600"
+                >
+                  View Projects
+                </a>
+              </motion.div>
             </div>
           </motion.div>
-        </div>
+        </section>
 
-        {/* Skills */}
- {/* Skills Section */}
- <motion.div
-  initial={{ opacity: 0, y: 50 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.5, delay: 0.3 }}
-  className="mt-24"
->
-  <h2 className="text-3xl font-bold mb-8 font-sans text-purple-500/80 text-center">My Skills</h2>
-
-  <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 gap-4">
-    {skills.map((skill, idx) => (
-      <motion.div
-        key={idx}
-        className="flip-card h-64" // Fixed height for consistency
-        whileHover={{ scale: 1.05 }}
-        transition={{ duration: 0.3 }}
-      >
-        <div className="flip-card-inner h-full">
-          {/* Front Side */}
-          <div className="flip-card-front bg-gray-980 flex flex-col items-center justify-center border border-cyan-800 rounded-lg p-4">
-            <img 
-              src={skill.icon} 
-              alt={skill.name} 
-              className={`w-12 h-12 object-contain ${skill.className || ''}`}
-            />
-            <h3 className="mt-3 text-white font-medium text-lg">{skill.name}</h3>
-          </div>
-          
-          {/* Back Side */}
-          <div className="flip-card-back bg-gray-980 border border-indigo-400 rounded-lg flex flex-col p-4">
-            <div className="flex-grow overflow-y-auto">
-              <ul className="text-gray-300 font-serif text-sm space-y-2 pr-2">
-                {skill.description.map((item, i) => (
-                  <li key={i} className="flex">
-                    <span className="text-indigo-400 font-medium mr-2">{item.no}</span>
-                    <span>{item.name}</span>
-                  </li>
-                ))}
-              </ul>
+        {/* Skills Section */}
+        <section id="skills" className="mb-24">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6 }}
+          >
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 relative inline-block">
+                <span className="relative z-10 bg-gradient-to-r from-primary-400 to-secondary-500 text-transparent bg-clip-text">
+                  Technical Skills
+                </span>
+                <span className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full"></span>
+              </h2>
+              <p className="text-gray-400 max-w-2xl mx-auto">
+                I've worked with a variety of technologies across the full stack. Here are my core competencies:
+              </p>
             </div>
-            <p className="text-indigo-400 font-serif text-sm font-medium mt-3 pt-2 border-t border-gray-700">
-              Experience: {skill.experience}
-            </p>
-          </div>
-        </div>
-      </motion.div>
-    ))}
-  </div>
-</motion.div>    {/* Education Timeline */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          className="mt-24"
-        >
-          <h2 className="text-3xl font-bold mb-8 font-sans text-center text-white">Education Journey</h2>
-          <div className="space-y-8">
-            {education.map((item, index) => (
-              <motion.div
-                key={index}
-                {...fadeInUp}
-                transition={{ delay: 0.2 * index }}
-                className="relative pl-8 before:content-[''] before:absolute before:left-0 before:top-2 before:w-3 before:h-3 before:bg-indigo-600 before:rounded-full before:shadow-lg"
-              >
-                <div className="absolute left-[5px] top-3 w-[1px] h-full bg-gray-700"></div>
-                <h3 className="font-bold font-sans text-lg text-blue-400">{item.degree}</h3>
-                <p className="text-gray-300 font-sans">{item.school}</p>
-                <p className="text-sm text-purple-400 font-serif font-semibold">{item.year}</p>
-                <p className="mt-2 text-gray-400 font-serif">{item.description}</p>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
+
+            {/* Skill Categories */}
+            <motion.div
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, margin: "-100px" }}
+            >
+              {skillCategories.map((category, index) => (
+                <motion.div
+                  key={index}
+                  variants={fadeInUp}
+                  className="bg-dark-800/50 backdrop-blur-sm p-6 rounded-xl border border-dark-700 hover:border-primary-500/30 transition-all"
+                >
+                  <div className="flex items-center mb-4">
+                    <div className="p-3 bg-primary-500/10 rounded-lg mr-4">
+                      {category.icon}
+                    </div>
+                    <h3 className="text-xl font-semibold">{category.name}</h3>
+                  </div>
+                  
+                  <div className="space-y-4">
+                    {category.skills.map((skill, skillIndex) => (
+                      <div key={skillIndex} className="group">
+                        <div className="flex items-center justify-between mb-1">
+                          <div className="flex items-center">
+                            {typeof skill.icon === 'string' ? (
+                              <img 
+                                src={skill.icon} 
+                                alt={skill.name}
+                                className={`w-6 h-6 object-contain mr-3 ${skill.className || ''}`}
+                              />
+                            ) : (
+                              <div className="w-6 h-6 mr-3 flex items-center justify-center">
+                                {skill.icon}
+                              </div>
+                            )}
+                            <span className="font-medium">{skill.name}</span>
+                          </div>
+                          <span className="text-sm text-gray-400">{skill.experience}</span>
+                        </div>
+                        
+                        {/* Animated proficiency bar */}
+                        <div className="w-full bg-dark-700 rounded-full h-2">
+                          <motion.div
+                            className="bg-gradient-to-r from-primary-500 to-secondary-500 h-2 rounded-full"
+                            initial={{ width: 0 }}
+                            whileInView={{ width: `${skill.proficiency}%` }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 1, delay: 0.2 * index }}
+                          />
+                        </div>
+                        
+                        <div className="flex justify-between text-xs text-gray-500 mt-1">
+                          <span>Proficiency</span>
+                          <span>{skill.proficiency}%</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </motion.div>
+        </section>
+
+        {/* Experience Section */}
+        <section id="experience" className="mb-24">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6 }}
+          >
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 relative inline-block">
+                <span className="relative z-10 bg-gradient-to-r from-primary-400 to-secondary-500 text-transparent bg-clip-text">
+                  Professional Experience
+                </span>
+                <span className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full"></span>
+              </h2>
+              <p className="text-gray-400 max-w-2xl mx-auto">
+                My journey through various roles and responsibilities in the tech industry
+              </p>
+            </div>
+
+            <div className="relative">
+              {/* Timeline line */}
+              <div className="absolute left-4 md:left-1/2 h-full w-0.5 bg-gradient-to-b from-primary-500 to-secondary-500 transform -translate-x-1/2"></div>
+              
+              {experiences.map((exp, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, x: i % 2 === 0 ? -50 : 50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: i * 0.1 }}
+                  className={`mb-8 w-full md:w-1/2 ${i % 2 === 0 ? 'md:pr-8 md:text-right' : 'md:pl-8 md:ml-auto'}`}
+                >
+                  <div className={`p-6 rounded-xl bg-dark-800/50 border border-dark-700 relative ${i % 2 === 0 ? 'md:mr-4' : 'md:ml-4'}`}>
+                    <div className={`absolute top-6 w-4 h-4 rounded-full bg-gradient-to-r from-primary-500 to-secondary-500 ${i % 2 === 0 ? '-right-2 md:-right-8' : '-left-2 md:-left-8'}`}></div>
+                    
+                    <div className="flex items-start mb-4">
+                      <div className="p-3 bg-primary-500/10 rounded-lg mr-4">
+                        {exp.icon}
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-semibold text-primary-400">{exp.role}</h3>
+                        <p className="text-secondary-400">{exp.company} • {exp.period}</p>
+                      </div>
+                    </div>
+                    
+                    <p className="text-gray-400 mb-4">{exp.description}</p>
+                    
+                    <div className="flex flex-wrap gap-2">
+                      {exp.technologies.map((tech, techIndex) => (
+                        <span key={techIndex} className="px-3 py-1 text-xs bg-dark-700 rounded-full text-gray-300">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </section>
+
+        {/* Education Section */}
+        <section id="education">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6 }}
+          >
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 relative inline-block">
+                <span className="relative z-10 bg-gradient-to-r from-primary-400 to-secondary-500 text-transparent bg-clip-text">
+                  Education
+                </span>
+                <span className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full"></span>
+              </h2>
+              <p className="text-gray-400 max-w-2xl mx-auto">
+                My academic background and continuous learning journey
+              </p>
+            </div>
+
+            <div className="space-y-8">
+              {education.map((item, index) => (
+                <motion.div
+                  key={index}
+                  variants={fadeInUp}
+                  initial="initial"
+                  whileInView="animate"
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.2 * index }}
+                  className="relative pl-12 before:content-[''] before:absolute before:left-0 before:top-2 before:w-4 before:h-4 before:bg-gradient-to-r from-primary-500 to-secondary-500 before:rounded-full before:shadow-lg"
+                >
+                  <div className="absolute left-[7px] top-6 w-[2px] h-full bg-gradient-to-b from-primary-500 to-secondary-500"></div>
+                  
+                  <div className="flex items-start mb-2">
+                    <div className="p-2 bg-primary-500/10 rounded-lg mr-4">
+                      {item.icon}
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-lg text-primary-400">{item.degree}</h3>
+                      <p className="text-gray-300">{item.school}</p>
+                    </div>
+                  </div>
+                  
+                  <div className="ml-12">
+                    <p className="text-sm text-secondary-400 font-medium mb-2">{item.year}</p>
+                    <p className="text-gray-400">{item.description}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </section>
       </div>
     </div>
   );

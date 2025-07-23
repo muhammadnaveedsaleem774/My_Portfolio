@@ -1,71 +1,235 @@
 import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import { FiExternalLink, FiGithub, FiEye, FiCode } from 'react-icons/fi';
+import { FaReact, FaJs, FaCss3Alt, FaNodeJs, FaDatabase } from 'react-icons/fa';
+import { SiTailwindcss, SiFirebase, SiTypescript } from 'react-icons/si';
+const ProjectCard = ({ project }) => {
+  const [isHovered, setIsHovered] = useState(false);
 
+  return (
+    <div 
+      className="relative h-96 w-full"
+      style={{ perspective: "1000px" }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <motion.div
+        className="relative w-full h-full"
+        animate={{ rotateY: isHovered ? 180 : 0 }}
+        transition={{ duration: 0.6 }}
+        style={{
+          transformStyle: 'preserve-3d',
+        }}
+      >
+        {/* Front of card */}
+        <motion.div 
+          className="absolute w-full h-full bg-gray-800 rounded-xl overflow-hidden shadow-lg border border-gray-700/50 flex flex-col"
+          style={{ 
+            backfaceVisibility: 'hidden',
+            zIndex: isHovered ? 0 : 1 
+          }}
+        >
+          <div className="relative h-48 w-full overflow-hidden group">
+            <img
+              src={project.image}
+              alt={project.title}
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              onError={(e) => {
+                e.target.src = `https://placehold.co/600x400/1f2937/ffffff?text=${project.title.replace(/\s+/g, '+')}`;
+                e.target.className = "w-full h-full object-contain bg-gray-700 p-4";
+              }}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+            <div className="absolute bottom-4 left-4">
+              <span className="px-3 py-1 bg-blue-600/90 text-white text-xs font-medium rounded-full backdrop-blur-sm">
+                {project.category}
+              </span>
+            </div>
+            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
+              <span className="text-white font-medium flex items-center">
+                <FiEye className="mr-2" /> View Details
+              </span>
+            </div>
+          </div>
+          
+          <div className="p-6 flex flex-col flex-grow">
+            <h3 className="text-xl font-bold mb-2 text-white">{project.title}</h3>
+            <p className="text-gray-300 mb-4 line-clamp-3">{project.description}</p>
+            
+            <div className="mt-auto pt-4 border-t border-gray-700/50">
+              <div className="flex items-center gap-3">
+                {project.techIcons.map((Icon, index) => (
+                  <div 
+                    key={index} 
+                    className="text-gray-400 hover:text-blue-400 transition-colors text-lg"
+                    title={project.technologies[index]}
+                  >
+                    {Icon}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Back of card */}
+        <motion.div 
+          className="absolute w-full h-full bg-gray-800 rounded-xl border border-gray-700/50 flex flex-col p-6"
+          style={{ 
+            backfaceVisibility: 'hidden',
+            transform: 'rotateY(180deg)',
+            zIndex: isHovered ? 1 : 0
+          }}
+        >
+          <div className="flex-grow">
+            <h3 className="text-xl font-bold mb-3 text-white">{project.title}</h3>
+            <p className="text-gray-300 mb-6">{project.description}</p>
+            
+            <div className="mb-6">
+              <h4 className="text-sm font-semibold text-gray-400 mb-3 uppercase tracking-wider">
+                Built With
+              </h4>
+              <div className="flex flex-wrap gap-2">
+                {project.technologies.map((tech, index) => (
+                  <span
+                    key={index}
+                    className="px-3 py-1 bg-gray-700/50 text-xs text-gray-200 rounded-full backdrop-blur-sm"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+          
+          <div className="flex flex-col sm:flex-row gap-3 w-full">
+            <a
+              href={project.liveLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1 flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg transition duration-300 shadow-md hover:shadow-blue-500/20"
+            >
+              <FiExternalLink className="w-4 h-4" />
+              Live Demo
+            </a>
+            <a
+              href={project.githubLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1 flex items-center justify-center gap-2 bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded-lg transition duration-300"
+            >
+              <FiGithub className="w-4 h-4" />
+              View Code
+            </a>
+          </div>
+        </motion.div>
+      </motion.div>
+    </div>
+  );
+};
 const Projects = () => {
-  const [flippedCards, setFlippedCards] = useState({});
-
-  const projects = [
-    {
-      id: 1,
-      title: 'To-Do App',
-      description: 'A productivity app to manage daily tasks with CRUD operations and local storage.',
-      image: '/todoapp.png',
-      technologies: ['React', 'LocalStorage', 'Tailwind CSS'],
-      liveLink: 'https://my-to-do-app-eight-lac.vercel.app',
-      githubLink: 'https://github.com/muhammadnaveedsaleem774/My_to_do_app.git',
-    },
-    {
-      id: 2,
-      title: 'Dice Roller',
-      description: 'Interactive dice rolling simulator with realistic animations.',
-      image: '/d.jpeg',
-      technologies: ['JavaScript', 'CSS Animations', 'React'],
-      liveLink: 'https://dice-live.vercel.app',
-      githubLink: 'https://github.com/muhammadnaveedsaleem774/Dice_live.git',
-    },
-    {
-      id: 3,
-      title: 'Password Generator',
-      description: 'Secure random password generator with customizable options.',
-      image: '/download.png',
-      technologies: ['JavaScript', 'React', 'Clipboard API'],
-      liveLink: 'https://dice-sk1c.vercel.app',
-      githubLink: 'https://github.com/muhammadnaveedsaleem774/Dice.git',
-    },
-    {
-      id: 4,
-      title: 'Weather Dashboard',
-      description: 'Real-time weather information with 5-day forecast.',
-      image: 'https://images.unsplash.com/photo-1601134467661-3d775b999c8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400&q=80',
-      technologies: ['API Integration', 'React', 'Chart.js'],
-      liveLink: '#',
-      githubLink: '#',
-    },
-    {
-      id: 5,
-      title: 'Expense Tracker',
-      description: 'Financial management app to track income and expenses.',
-      image: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400&q=80',
-      technologies: ['React', 'Context API', 'Chart.js'],
-      liveLink: '#',
-      githubLink: '#',
-    },
-    {
-      id: 6,
-      title: 'Recipe Finder',
-      description: 'Search and save your favorite recipes with ingredients.',
-      image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400&q=80',
-      technologies: ['React', 'API Integration', 'Firebase'],
-      liveLink: '#',
-      githubLink: '#',
-    }
-  ];
+  const [activeFilter, setActiveFilter] = useState('All');
+  const [flippedCard, setFlippedCard] = useState(null);
+// In your projects array, update the techIcons with colored icons:
+const projects = [
+  {
+    id: 1,
+    title: 'To-Do App',
+    description: 'A productivity app to manage daily tasks with CRUD operations and local storage.',
+    image: '/todoapp.png',
+    technologies: ['React', 'LocalStorage', 'Tailwind CSS'],
+    techIcons: [
+      <FaReact key="react" className="text-[#61DAFB]" />, // React blue
+      <FaDatabase key="db" className="text-blue-500" />, // Database blue
+      <SiTailwindcss key="tailwind" className="text-[#38BDF8]" /> // Tailwind cyan
+    ],
+    category: 'Web App',
+    liveLink: 'https://my-to-do-app-eight-lac.vercel.app',
+    githubLink: 'https://github.com/muhammadnaveedsaleem774/My_to_do_app.git',
+  },
+  {
+    id: 2,
+    title: 'Dice Roller',
+    description: 'Interactive dice rolling simulator with realistic animations and sound effects.',
+    image: '/d.jpeg',
+    technologies: ['JavaScript', 'CSS Animations', 'React'],
+    techIcons: [
+      <FaJs key="js" className="text-[#F7DF1E]" />, // JavaScript yellow
+      <FaCss3Alt key="css" className="text-[#1572B6]" />, // CSS blue
+      <FaReact key="react" className="text-[#61DAFB]" /> // React blue
+    ],
+    category: 'Game',
+    liveLink: 'https://dice-live.vercel.app',
+    githubLink: 'https://github.com/muhammadnaveedsaleem774/Dice_live.git',
+  },
+  {
+    id: 3,
+    title: 'Password Generator',
+    description: 'Secure random password generator with customizable options and clipboard copy.',
+    image: '/download.png',
+    technologies: ['JavaScript', 'React', 'Clipboard API'],
+    techIcons: [
+      <FaJs key="js" className="text-[#F7DF1E]" />, // JavaScript yellow
+      <FaReact key="react" className="text-[#61DAFB]" />, // React blue
+      <FiCode key="code" className="text-gray-400" /> // Code icon (gray)
+    ],
+    category: 'Tool',
+    liveLink: 'https://dice-sk1c.vercel.app',
+    githubLink: 'https://github.com/muhammadnaveedsaleem774/Dice.git',
+  },
+  {
+    id: 4,
+    title: 'Weather Dashboard',
+    description: 'Real-time weather information with 5-day forecast and location detection.',
+    image: 'https://images.unsplash.com/photo-1601134467661-3d775b999c8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400&q=80',
+    technologies: ['API Integration', 'React', 'Chart.js'],
+    techIcons: [
+      <FaReact key="react" className="text-[#61DAFB]" />, // React blue
+      <FaNodeJs key="node" className="text-[#339933]" />, // Node.js green
+      <SiTypescript key="ts" className="text-[#3178C6]" /> // TypeScript blue
+    ],
+    category: 'Web App',
+    liveLink: '#',
+    githubLink: '#',
+  },
+  {
+    id: 5,
+    title: 'Expense Tracker',
+    description: 'Financial management app to track income, expenses with visual analytics.',
+    image: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400&q=80',
+    technologies: ['React', 'Context API', 'Chart.js'],
+    techIcons: [
+      <FaReact key="react" className="text-[#61DAFB]" />, // React blue
+      <SiTypescript key="ts" className="text-[#3178C6]" />, // TypeScript blue
+      <FaDatabase key="db" className="text-blue-500" /> // Database blue
+    ],
+    category: 'Web App',
+    liveLink: '#',
+    githubLink: '#',
+  },
+  {
+    id: 6,
+    title: 'Recipe Finder',
+    description: 'Search and save your favorite recipes with ingredients and cooking instructions.',
+    image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400&q=80',
+    technologies: ['React', 'API Integration', 'Firebase'],
+    techIcons: [
+      <FaReact key="react" className="text-[#61DAFB]" />, // React blue
+      <FaNodeJs key="node" className="text-[#339933]" />, // Node.js green
+      <SiFirebase key="firebase" className="text-[#FFCA28]" /> // Firebase yellow
+    ],
+    category: 'Web App',
+    liveLink: '#',
+    githubLink: '#',
+  }
+];
+  const filters = ['All', 'Web App', 'Game', 'Tool'];
+  const filteredProjects = activeFilter === 'All' 
+    ? projects 
+    : projects.filter(project => project.category === activeFilter);
 
   const toggleFlip = (id) => {
-    setFlippedCards(prev => ({
-      ...prev,
-      [id]: !prev[id]
-    }));
+    setFlippedCard(flippedCard === id ? null : id);
   };
 
   const container = {
@@ -73,120 +237,96 @@ const Projects = () => {
     show: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2
+        staggerChildren: 0.15,
+        delayChildren: 0.3
       }
     }
   };
 
-  const item = {
-    hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0 }
+  const cardItem = {
+    hidden: { opacity: 0, y: 30 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.5 } }
   };
 
   return (
-    <section id="project">
-    <div  className="min-h-screen py-12 bg-gradient-to-br from-gray-900 to-cyan-900bg-gradient-to-br from-gray-900 to-cyan-900 px-4">
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
+    <section id="projects" className="relative py-20 bg-gray-900 overflow-hidden px-4 sm:px-6">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-20 left-20 w-64 h-64 bg-blue-900/20 rounded-full filter blur-3xl"></div>
+        <div className="absolute bottom-20 right-20 w-80 h-80 bg-purple-900/20 rounded-full filter blur-3xl"></div>
+      </div>
+
+      <div className="max-w-7xl mx-auto relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-transparent bg-clip-text">
-            My Projects
-          </h1>
-          <p className="text-gray-300 max-w-2xl mx-auto">
-            Here are some of my projects. Click on any card to see more details.
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-500 text-transparent bg-clip-text">
+            My Work
+          </h2>
+          <p className="text-gray-300 max-w-2xl mx-auto text-lg">
+            Selected projects showcasing my skills and experience
           </p>
         </motion.div>
 
-        {/* Projects Grid */}
-        <motion.div
-          variants={container}
-          initial="hidden"
-          animate="show"
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+        <motion.div 
+          className="flex flex-wrap justify-center gap-3 mb-12"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3 }}
         >
-          {projects.map((project) => (
-            <motion.div 
-              key={project.id}
-              variants={item}
-              className="flip-card h-96 w-full" // Added w-full here
-              onClick={() => toggleFlip(project.id)}
+          {filters.map(filter => (
+            <button
+              key={filter}
+              onClick={() => setActiveFilter(filter)}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                activeFilter === filter
+                  ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg shadow-blue-500/20'
+                  : 'bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white'
+              }`}
             >
-              <div className={`flip-card-inner w-full h-full ${flippedCards[project.id] ? 'flipped' : ''}`}>
-                {/* Front Side */}
-                <div className="flip-card-front  rounded-xl overflow-hidden shadow-lg border border-cyan-700 flex flex-col h-full">
-                  {/* Image Container with Fixed Dimensions */}
-                  <div className="relative h-48 w-full">
-                    <img
-                      src={project.image}
-                      alt={project.title}
-                      className="w-full h-full object-cover"
-                      onError={(e) => {
-                        e.target.src = `https://placehold.co/600x400/1f2937/ffffff?text=${project.title.replace(/\s+/g, '+')}`;
-                        e.target.className = "w-full h-full object-contain bg-gray-700 p-4";
-                      }}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-                  </div>
-                  <div className="p-6 flex flex-col flex-grow">
-                    <h3 className="text-xl font-bold mb-2 text-white">{project.title}</h3>
-                    <p className="text-gray-300 mb-4 line-clamp-2">{project.description}</p>
-                    <div className="flex flex-wrap gap-2 mt-auto">
-                      {project.technologies.map((tech, index) => (
-                        <span
-                          key={index}
-                          className="px-3 py-1 bg-gray-700 text-xs text-gray-200 rounded-full"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Back Side */}
-                <div className="flip-card-back  rounded-xl border border-cyan-700 p-6 flex flex-col items-center justify-center h-full">
-                  <div className="text-center">
-                    <h3 className="text-xl font-bold mb-2 text-white">{project.title}</h3>
-                    <p className="text-gray-300 mb-6">{project.description}</p>
-                  </div>
-                  <div className="flex flex-col space-y-3 w-full">
-                    <a
-                      href={project.liveLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg text-center transition duration-300 flex items-center justify-center gap-2"
-                    >
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                      </svg>
-                      Live Demo
-                    </a>
-                    <a
-                      href={project.githubLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded-lg text-center transition duration-300 flex items-center justify-center gap-2"
-                    >
-                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                      </svg>
-                      View Code
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
+              {filter}
+            </button>
           ))}
         </motion.div>
-      </div>
 
-     {/*  */}
-    </div>
+        <motion.div
+        variants={container}
+        initial="hidden"
+        animate="show"
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+      >
+        <AnimatePresence>
+          {filteredProjects.map((project) => (
+            <motion.div 
+              key={project.id}
+              variants={cardItem}
+              layout
+              className="h-full"
+            >
+              <ProjectCard project={project} />
+            </motion.div>
+          ))}
+        </AnimatePresence>
+      </motion.div>
+
+        {filteredProjects.length === 0 && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-center py-16"
+          >
+            <div className="text-gray-400 mb-4">No projects found in this category</div>
+            <button 
+              onClick={() => setActiveFilter('All')}
+              className="px-6 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg font-medium shadow-lg hover:shadow-blue-500/30 transition-all"
+            >
+              View All Projects
+            </button>
+          </motion.div>
+        )}
+      </div>
     </section>
   );
 };
