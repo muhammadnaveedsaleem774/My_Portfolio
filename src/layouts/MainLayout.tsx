@@ -64,17 +64,17 @@ const MainLayout = ({ children }: MainLayoutProps) => {
       } border-b border-gray-800`}>
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            <Link to="/" className="flex items-center space-x-2">
+            <Link to="/" className="flex px-3 py-2 hover:rounded-full hover:bg-white items-center space-x-2">
               <motion.div
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ type: 'spring', stiffness: 260, damping: 20 }}
-                className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center"
+                className="w-8 h-8 rounded-full  bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center"
               >
-                <span className="text-white font-bold text-sm">MN</span>
+                <span className="text-white hover:text-black font-bold text-sm">MN</span>
               </motion.div>
               <motion.span 
-                className="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent"
+                className="text-xl font-bold bg-gradient-to-r hover:text-black from-blue-400 to-purple-500 bg-clip-text text-transparent"
                 whileHover={{ scale: 1.05 }}
               >
                 M.Naveed
@@ -82,15 +82,15 @@ const MainLayout = ({ children }: MainLayoutProps) => {
             </Link>
 
             
-<div className="hidden md:flex items-center space-x-8 relative">
+<div className="hidden md:flex items-center space-x-2 relative">
   {navItems.map((item) => (
     <div key={item.path} className="relative group">
         <Link
           to={item.path}
-          className={`flex items-center px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
+          className={`flex items-center px-3 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
             location.pathname === item.path 
-              ? `${item.color} bg-gray-800/50` 
-              : 'text-gray-400 hover:text-gray-200 hover:bg-gray-800/30'
+              ? `${item.color} bg-gray-800/50 hover:rounded-full hover:text-black hover:bg-white ` 
+              : 'text-gray-400 hover:text-black hover:rounded-full hover:bg-white'
           }`}
         >
           <item.Icon className="h-5 w-5 mr-2" />
