@@ -352,7 +352,7 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-gray-900 text-gray-100">
       {/* Hero Section */}
-      <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-16">
+      <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-2">
         {/* Floating Tech Icons Background */}
         <div className="absolute inset-0 overflow-hidden">
           {[...Array(12)].map((_, i) => (
@@ -364,7 +364,7 @@ const Home = () => {
           ))}
         </div>
 
-        <div className="relative z-20 w-full px-4 py-12 sm:py-16 md:py-20 max-w-7xl mx-auto">
+        <div className="relative z-20 w-full px-4 py-12 sm:py-16  max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={isVisible ? { opacity: 1, y: 0 } : {}}

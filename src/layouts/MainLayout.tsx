@@ -34,14 +34,6 @@ const MainLayout = ({ children }: MainLayoutProps) => {
       path: "/", 
       Icon: Home, 
       color: "text-blue-400",
-      dropdownItems: [
-        { name: "home", path: "/", Icon: Home },
-        { name: "About me", path: "#about", Icon: User },
-        { name: "Education", path: "#education", Icon: GraduationCap },
-        { name: "My Skills", path: "#skills", Icon: Code },
-        { name: "Experience", path: "#experience", Icon: Briefcase },
-        { name: "FAQs", path: "#Ask", Icon:HelpCircle   },
-      ]
     },
     { name: "About", path: "/about", Icon: User, color: "text-purple-400" },
     { name: "Projects", path: "/projects", Icon: FolderGit2, color: "text-amber-400" },
@@ -67,8 +59,8 @@ const MainLayout = ({ children }: MainLayoutProps) => {
   return (
     <div className="min-h-screen flex flex-col bg-gray-900 text-gray-100">
       {/* Enhanced Header */}
-      <header className={`fixed w-full z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-gray-800/95 backdrop-blur-md py-2 shadow-lg' : 'bg-gray-900/80 backdrop-blur-sm py-4'
+      <header className={`fixed w-full z-40 transition-all duration-300 ${
+        isScrolled ? 'bg-gray-900   ' : 'bg-gray-900  '
       } border-b border-gray-800`}>
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
@@ -93,64 +85,6 @@ const MainLayout = ({ children }: MainLayoutProps) => {
 <div className="hidden md:flex items-center space-x-8 relative">
   {navItems.map((item) => (
     <div key={item.path} className="relative group">
-      {item.dropdownItems ? (
-        <>
-          <div className="flex items-center">
-            <Link
-              to={item.path}
-              className={`flex items-center px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
-                location.pathname === item.path || 
-                item.dropdownItems.some(di => window.location.hash === di.path)
-                  ? `${item.color} bg-gray-800/50` 
-                  : 'text-gray-400 hover:text-gray-200 hover:bg-gray-800/30'
-              }`}
-            >
-              <item.Icon className="h-5 w-5 mr-2" />
-              {item.name}
-            </Link>
-            <button
-              onClick={() => setIsHomeDropdownOpen(!isHomeDropdownOpen)}
-              className="p-1 ml-1 text-gray-400 hover:text-gray-200 focus:outline-none"
-              aria-label="Toggle dropdown"
-            >
-              {isHomeDropdownOpen ? (
-                <ChevronUp className="h-4 w-4" />
-              ) : (
-                <ChevronDown className="h-4 w-4" />
-              )}
-            </button>
-          </div>
-          
-          {isHomeDropdownOpen && (
-            <div 
-              id="home-dropdown" 
-              className="absolute left-0 mt-2 w-48 bg-gray-800 rounded-md shadow-lg z-10 border border-gray-700"
-              onMouseLeave={() => setIsHomeDropdownOpen(false)}
-            >
-              {item.dropdownItems.map((dropdownItem) => (
-                <Link
-                  key={dropdownItem.path}
-                  to={dropdownItem.path.includes('#') ? '/' : dropdownItem.path}
-                  onClick={() => {
-                    if (dropdownItem.path.includes('#')) {
-                      scrollToSection(dropdownItem.path);
-                    }
-                    setIsHomeDropdownOpen(false);
-                  }}
-                  className={`flex items-center w-full px-4 py-2 text-sm ${
-                    window.location.hash === dropdownItem.path
-                      ? `${item.color} bg-gray-700/50`
-                      : 'text-gray-300 hover:bg-gray-700/30'
-                  }`}
-                >
-                  {dropdownItem.Icon && <dropdownItem.Icon className="h-4 w-4 mr-2" />}
-                  {dropdownItem.name}
-                </Link>
-              ))}
-            </div>
-          )}
-        </>
-      ) : (
         <Link
           to={item.path}
           className={`flex items-center px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
@@ -162,7 +96,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
           <item.Icon className="h-5 w-5 mr-2" />
           {item.name}
         </Link>
-      )}
+      
     </div>
   ))}
 </div>
@@ -192,7 +126,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
           </div>
         </nav>
 
-      {/* Mobile Menu */}
+{/* Mobile Menu */}
 <AnimatePresence>
   {isMobileMenuOpen && (
     <motion.div
@@ -205,75 +139,18 @@ const MainLayout = ({ children }: MainLayoutProps) => {
       <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
         {navItems.map((item) => (
           <div key={item.path}>
-            {item.dropdownItems ? (
-              <>
-                <button
-                  onClick={() => setIsMobileDropdownOpen(!isMobileDropdownOpen)}
-                  className={`flex items-center justify-between w-full px-3 py-3 rounded-md text-base font-medium transition-all duration-200 ${
-                    location.pathname === item.path || 
-                    item.dropdownItems.some(di => window.location.hash === di.path)
-                      ? `${item.color} bg-gray-700/50` 
-                      : 'text-gray-400 hover:text-gray-200 hover:bg-gray-700/30'
-                  }`}
-                >
-                  <div className="flex items-center">
-                    <item.Icon className="h-5 w-5 mr-3" />
-                    {item.name}
-                  </div>
-                  {isMobileDropdownOpen ? (
-                    <ChevronUp className="h-5 w-5" />
-                  ) : (
-                    <ChevronDown className="h-5 w-5" />
-                  )}
-                </button>
-
-                <AnimatePresence>
-                  {isMobileDropdownOpen && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: 'auto' }}
-                      exit={{ opacity: 0, height: 0 }}
-                      transition={{ duration: 0.2 }}
-                      className="pl-8 space-y-1"
-                    >
-                      {item.dropdownItems.map((dropdownItem) => (
-                        <Link
-                          key={dropdownItem.path}
-                          to={dropdownItem.path}
-                          onClick={() => {
-                            scrollToSection(dropdownItem.path);
-                            setIsMobileMenuOpen(false);
-                          }}
-                          className={`flex items-center px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
-                            window.location.hash === dropdownItem.path
-                              ? `${item.color} bg-gray-700/30`
-                              : 'text-gray-400 hover:text-gray-200 hover:bg-gray-700/20'
-                          }`}
-                        >
-                          {dropdownItem.Icon && (
-                            <dropdownItem.Icon className="h-4 w-4 mr-3" />
-                          )}
-                          {dropdownItem.name}
-                        </Link>
-                      ))}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </>
-            ) : (
-              <Link
-                to={item.path}
-                className={`flex items-center px-3 py-3 rounded-md text-base font-medium transition-all duration-200 ${
-                  location.pathname === item.path 
-                    ? `${item.color} bg-gray-700/50` 
-                    : 'text-gray-400 hover:text-gray-200 hover:bg-gray-700/30'
-                }`}
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                <item.Icon className="h-5 w-5 mr-3" />
-                {item.name}
-              </Link>
-            )}
+            <Link
+              to={item.path}
+              className={`flex items-center px-3 py-3 rounded-md text-base font-medium transition-all duration-200 ${
+                location.pathname === item.path 
+                  ? `${item.color} bg-gray-700/50` 
+                  : 'text-gray-400 hover:text-gray-200 hover:bg-gray-700/30'
+              }`}
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              <item.Icon className="h-5 w-5 mr-3" />
+              {item.name}
+            </Link>
           </div>
         ))}
       </div>
@@ -293,8 +170,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
     </motion.div>
   )}
 </AnimatePresence>
-      </header>
-
+</header>
       {/* Main Content */}
       <main className="flex-grow pt-16">
         <AnimatePresence mode="wait">
