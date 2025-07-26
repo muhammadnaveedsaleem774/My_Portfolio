@@ -84,35 +84,6 @@ const AnimatedTypingText = () => {
   );
 };
 
-const FloatingTechIcon = ({ Icon, delay }) => {
-  const size = `${Math.random() * 80 + 40}px`;
-  const top = `${Math.random() * 100}%`;
-  const left = `${Math.random() * 100}%`;
-
-  return (
-    <motion.div
-      className="absolute rounded-full bg-blue-500/10 backdrop-blur-sm flex items-center justify-center"
-      style={{ width: size, height: size, top, left }}
-      initial={{ opacity: 0, scale: 0 }}
-      animate={{
-        opacity: [0.1, 0.3, 0.1],
-        scale: [0.8, 1, 0.8],
-        y: [0, (Math.random() - 0.5) * 100],
-        x: [0, (Math.random() - 0.5) * 100],
-      }}
-      transition={{
-        delay,
-        duration: Math.random() * 10 + 10,
-        repeat: Infinity,
-        repeatType: 'reverse',
-        ease: "easeInOut"
-      }}
-    >
-      <Icon className="text-blue-400/50" size={20} />
-    </motion.div>
-  );
-};
-
 const SkillBar = ({ name, level, icon }) => (
   <div className="mb-4">
     <div className="flex justify-between items-center mb-1">
@@ -135,7 +106,7 @@ const SkillBar = ({ name, level, icon }) => (
 );
 
 const EducationSection = () => (
-  <section id="education" className="py-20 bg-gray-900">
+  <section id="education" className="py-20 bg-dark-900">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -157,7 +128,7 @@ const EducationSection = () => (
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="bg-gray-800/50 p-6 rounded-xl border border-gray-700"
+            className="bg-dark-900 p-6 rounded-xl border border-gray-700"
           >
             <div className="flex items-center mb-6">
               <div className="p-2 rounded-lg bg-blue-500/10 mr-3">
@@ -176,7 +147,7 @@ const EducationSection = () => (
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="bg-gray-800/50 p-6 rounded-xl border border-gray-700"
+            className="bg-dark-900 p-6 rounded-xl border border-gray-700"
           >
             <div className="flex items-center mb-6">
               <div className="p-2 rounded-lg bg-purple-500/10 mr-3">
@@ -195,7 +166,7 @@ const EducationSection = () => (
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="bg-gray-800/50 p-6 rounded-xl border border-gray-700"
+            className="bg-dark-900 p-6 rounded-xl border border-gray-700"
           >
             <div className="flex items-center mb-6">
               <div className="p-2 rounded-lg bg-amber-500/10 mr-3">
@@ -215,7 +186,7 @@ const EducationSection = () => (
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-12 bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-xl border border-gray-700"
+          className="mt-12 bg-dark-900 p-6 rounded-xl border border-gray-700"
         >
           <div className="flex flex-col md:flex-row items-center">
             <div className="md:w-1/3 mb-6 md:mb-0">
@@ -437,7 +408,7 @@ const Home = () => {
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-20 bg-gray-800/50 backdrop-blur-sm">
+      <section id="about" className="py-20 bg-dark-900 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -482,7 +453,7 @@ const Home = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <motion.div 
                   whileHover={{ y: -5 }}
-                  className="bg-gray-700/50 p-6 rounded-xl border border-gray-600"
+                  className="bg-dark-900 hover:bg-gray-700/50 p-6 rounded-xl border border-gray-600"
                 >
                   <h3 className="text-xl font-semibold mb-3 text-blue-400 flex items-center">
                     <Code className="mr-2" /> Technical Strengths
@@ -494,7 +465,7 @@ const Home = () => {
                 </motion.div>
                 <motion.div 
                   whileHover={{ y: -5 }}
-                  className="bg-gray-700/50 p-6 rounded-xl border border-gray-600"
+                  className="bg-dark-900 hover:bg-gray-700/50 p-6 rounded-xl border border-gray-600"
                 >
                   <h3 className="text-xl font-semibold mb-3 text-purple-400 flex items-center">
                     <Server className="mr-2" /> Academic Focus
@@ -517,7 +488,7 @@ const Home = () => {
       {/* ... */}
  
        {/* Skills Section */}
-       <section id="skills" className="py-20 bg-gray-900">
+       <section id="skills" className="py-20 bg-dark-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -564,7 +535,7 @@ const Home = () => {
       </section>
 
       {/* Experience Section */}
-      <section id="experience" className="py-20 bg-gray-800/50 backdrop-blur-sm">
+      <section id="experience" className="py-20 bg-dark-900 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -590,7 +561,7 @@ const Home = () => {
           </motion.div>
         </div>
       </section>
-      <section id='Ask' className="py-16 bg-gradient-to-br from-gray-800 to-gray-900">
+      <section id='Ask' className="py-16 bg-dark-900 border  border-gray-700">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -616,7 +587,7 @@ const Home = () => {
               </Link>
               <Link to="/projects">
                 <motion.button
-                  className="px-8 py-3 bg-gray-800 hover:bg-gray-700 text-white rounded-lg font-medium border border-gray-700 hover:shadow-gray-500/20 transition-all"
+                  className="px-8 py-3 bg-dark-900 hover:bg-gray-700 text-white rounded-lg font-medium border border-gray-700 hover:shadow-gray-500/20 transition-all"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
