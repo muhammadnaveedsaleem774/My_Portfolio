@@ -158,7 +158,7 @@ const Skills = () => {
   };
 
   return (
-    <section id="skills" ref={ref} className="relative py-24 bg-gray-900 overflow-hidden">
+    <section id="skills" ref={ref} className="relative py-24 bg-dark-900 overflow-hidden">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden opacity-10">
         <motion.div 

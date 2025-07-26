@@ -172,37 +172,6 @@ const About = () => {
 
   return (
     <div className="min-h-screen bg-dark-900 text-gray-100 relative overflow-hidden">
-      {/* Floating background elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div
-          className="absolute top-20 left-20 w-64 h-64 bg-blue-900 rounded-full opacity-10 blur-3xl"
-          animate={{
-            x: [0, 20, 0],
-            y: [0, 30, 0],
-          }}
-          transition={{
-            duration: 15,
-            repeat: Infinity,
-            repeatType: "reverse",
-            ease: "easeInOut"
-          }}
-        />
-        <motion.div
-          className="absolute bottom-10 right-10 w-80 h-80 bg-purple-900 rounded-full opacity-10 blur-3xl"
-          animate={{
-            x: [0, -30, 0],
-            y: [0, -20, 0],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            repeatType: "reverse",
-            ease: "easeInOut",
-            delay: 2
-          }}
-        />
-      </div>
-
       <div className="max-w-7xl mx-auto px-6 py-16 relative z-10">
         {/* Hero Section */}
         <section className="mb-24">
@@ -224,8 +193,8 @@ const About = () => {
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                 />
               </div>
-              <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-primary-500 rounded-full z-[-1] opacity-20 animate-pulse"></div>
-              <div className="absolute -top-6 -left-6 w-32 h-32 bg-secondary-500 rounded-full z-[-1] opacity-20 animate-pulse-slow"></div>
+             
+              
             </motion.div>
 
             {/* Bio Content */}

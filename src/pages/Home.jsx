@@ -350,19 +350,11 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-900 text-gray-100">
+    <div className="min-h-screen bg-dark-900 text-gray-100">
       {/* Hero Section */}
       <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-2">
         {/* Floating Tech Icons Background */}
-        <div className="absolute inset-0 overflow-hidden">
-          {[...Array(12)].map((_, i) => (
-            <FloatingTechIcon 
-              key={i} 
-              Icon={techStack[i % techStack.length].Icon} 
-              delay={i * 0.5} 
-            />
-          ))}
-        </div>
+       
 
         <div className="relative z-20 w-full px-4 py-12 sm:py-16  max-w-7xl mx-auto">
           <motion.div

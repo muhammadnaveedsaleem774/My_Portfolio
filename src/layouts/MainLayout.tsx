@@ -15,8 +15,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileDropdownOpen, setIsMobileDropdownOpen] = useState(false);
-  const [isHomeDropdownOpen, setIsHomeDropdownOpen] = useState(false);
+ 
 
 
   // Handle scroll effect for header
@@ -57,11 +56,11 @@ const MainLayout = ({ children }: MainLayoutProps) => {
     }
   };
   return (
-    <div className="min-h-screen flex flex-col bg-gray-900 text-gray-100">
+    <div className="min-h-screen flex flex-col bg-dark-900 text-gray-100">
       {/* Enhanced Header */}
-      <header className={`fixed w-full z-40 transition-all duration-300 ${
-        isScrolled ? 'bg-gray-900   ' : 'bg-gray-900  '
-      } border-b border-gray-800`}>
+      <header className={`fixed w-full rounded-lg z-40 transition-all duration-300 ${
+        isScrolled ? 'bg-gray-900   ' : 'bg-dark-900  '
+      } `}>
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <Link to="/" className="flex px-3 py-2 hover:rounded-full hover:bg-white items-center space-x-2">
@@ -134,9 +133,9 @@ const MainLayout = ({ children }: MainLayoutProps) => {
       animate={{ opacity: 1, height: 'auto' }}
       exit={{ opacity: 0, height: 0 }}
       transition={{ duration: 0.3 }}
-      className="md:hidden bg-gray-800 border-t border-gray-700 overflow-hidden"
+      className="md:hidden bg-dark-900 border-t border-gray-700 overflow-hidden"
     >
-      <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+      <div className="px-2 pt-2 pb-3  items-center sm:px-3">
         {navItems.map((item) => (
           <div key={item.path}>
             <Link

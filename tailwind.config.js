@@ -48,7 +48,9 @@ export default {
           600: '#475569',
           700: '#334155',
           800: '#1e293b',
-          900: '#0f172a',
+         // 900: '#0f172a',
+          900: '#0A0A0A',  // Very dark (almost black)
+          950: '#050505'
         },
         accent: {
           success: '#10b981',

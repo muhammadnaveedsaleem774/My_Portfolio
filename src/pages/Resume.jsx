@@ -134,36 +134,7 @@ const Resume = () => {
 
   return (
     <div className="min-h-screen bg-dark-900 text-gray-100 relative overflow-hidden">
-      {/* Floating background elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div
-          className="absolute top-20 left-20 w-64 h-64 bg-blue-900 rounded-full opacity-10 blur-3xl"
-          animate={{
-            x: [0, 20, 0],
-            y: [0, 30, 0],
-          }}
-          transition={{
-            duration: 15,
-            repeat: Infinity,
-            repeatType: "reverse",
-            ease: "easeInOut"
-          }}
-        />
-        <motion.div
-          className="absolute bottom-10 right-10 w-80 h-80 bg-purple-900 rounded-full opacity-10 blur-3xl"
-          animate={{
-            x: [0, -30, 0],
-            y: [0, -20, 0],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            repeatType: "reverse",
-            ease: "easeInOut",
-            delay: 2
-          }}
-        />
-      </div>
+     
 
       <div className="max-w-7xl mx-auto px-6 py-16 relative z-10">
         {/* Header */}

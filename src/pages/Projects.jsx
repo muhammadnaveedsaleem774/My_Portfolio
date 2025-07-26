@@ -249,7 +249,7 @@ const projects = [
   };
 
   return (
-    <section id="projects" className="relative py-20 bg-gray-900 overflow-hidden px-4 sm:px-6">
+    <section id="projects" className="relative py-20 bg-dark-900 overflow-hidden px-4 sm:px-6">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 left-20 w-64 h-64 bg-blue-900/20 rounded-full filter blur-3xl"></div>
         <div className="absolute bottom-20 right-20 w-80 h-80 bg-purple-900/20 rounded-full filter blur-3xl"></div>

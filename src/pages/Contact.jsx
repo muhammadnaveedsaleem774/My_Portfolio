@@ -145,7 +145,7 @@ const Contact = () => {
     <section 
       id="contact" 
       ref={ref} 
-      className="relative py-28 bg-gradient-to-br from-gray-900 to-gray-950 overflow-hidden"
+      className="relative py-28 bg-dark-900 overflow-hidden"
     >
       {/* Animated cursor follower */}
       <motion.div
