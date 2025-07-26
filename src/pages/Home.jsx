@@ -128,7 +128,7 @@ const EducationSection = () => (
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="bg-dark-900 p-6 rounded-xl border border-gray-700"
+            className="hover:bg-gray-800/50 p-6 rounded-xl border border-gray-700"
           >
             <div className="flex items-center mb-6">
               <div className="p-2 rounded-lg bg-blue-500/10 mr-3">
@@ -147,7 +147,7 @@ const EducationSection = () => (
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="bg-dark-900 p-6 rounded-xl border border-gray-700"
+            className="hover:bg-gray-800/50 p-6 rounded-xl border border-gray-700"
           >
             <div className="flex items-center mb-6">
               <div className="p-2 rounded-lg bg-purple-500/10 mr-3">
@@ -166,7 +166,7 @@ const EducationSection = () => (
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="bg-dark-900 p-6 rounded-xl border border-gray-700"
+            className="hover:bg-gray-800/50 p-6 rounded-xl border border-gray-700"
           >
             <div className="flex items-center mb-6">
               <div className="p-2 rounded-lg bg-amber-500/10 mr-3">
