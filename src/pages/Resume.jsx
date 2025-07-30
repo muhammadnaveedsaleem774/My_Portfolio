@@ -158,7 +158,7 @@ const Resume = () => {
             transition={{ delay: 0.3 }}
           >
             <motion.a
-              href="/resume.pdf"
+              href="/naveedresume.pdf"
               download
               className="flex items-center gap-2 px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white rounded-lg font-medium transition-colors duration-300 shadow-lg hover:shadow-primary-500/30"
               whileHover={{ scale: 1.05 }}
